@@ -1,0 +1,78 @@
+/* src/components/Header.css */
+
+.header {
+  background-color: #0C1F3C; /* Couleur de fond bleu clair */
+  color: white; /* Texte en blanc */
+  padding-top: 10px;
+}
+
+.header-title {
+  display: flex; /* Utilisation de Flexbox */
+  justify-content: space-between; /* Centrer le logo et le titre horizontalement */
+  align-items: center; /* Centrer verticalement */
+  height: 100px; /* Hauteur de la première ligne */
+  padding:0 15px 0 15px;
+  
+}
+.profile-icon {
+  padding-right: 50px;
+  font-size: 2rem; /* Taille de l'icône */
+  color: white;     /* Couleur de l'icône */
+  cursor: pointer; /* Curseur pour indiquer que l'icône est cliquable */
+  margin-left: 20px; /* Espace entre le logo et l'icône */
+}
+
+main{
+    margin-top: 30px;
+}
+
+.title {
+  font-size: 1.8em; /* Taille du texte du titre */
+  font-weight: bold; /* Titre en gras */
+  margin: 0; /* Enlever la marge */
+}
+
+.logo-img {
+
+  height: 90px; /* Taille du logo */
+  width: auto; /* Conserver le ratio de l'image */
+  margin-right: 20px; /* Ajouter un petit espace entre le logo et le titre */
+}
+
+.header-nav {
+  background-color: #3785F2;
+  display: flex; /* Utilisation de Flexbox */
+  justify-content: center; /* Centrer les liens horizontalement */
+  align-items: center; /* Centrer verticalement */
+  height: 40px; /* Hauteur de la deuxième ligne */
+  gap: 40px; /* Espacement uniforme de 40px entre les éléments */
+  
+}
+
+
+.nav-list {
+  display: flex; /* Disposition horizontale des éléments */
+  list-style-type: none; /* Supprimer les puces */
+  margin: 0; /* Enlever la marge */
+  padding: 0; /* Enlever le padding */
+}
+
+.nav-item {
+  margin-left: 120px; /* Espacement entre les éléments de la liste */
+}
+
+.nav-item:first-child {
+  margin-left: 0; /*  pour enlever la marge à gauche du premier élément */
+}
+
+.nav-link {
+  color: white; /* Couleur des liens en blanc */
+  text-decoration: none; /* Enlever le soulignement des liens */
+  font-size: 1em; /* Taille de la police */
+  font-weight: bold; /* Liens en gras */
+  transition: color 0.3s ease; /* Effet de transition pour le hover */
+}
+
+.nav-link:hover {
+  color: #0C1F3C; /* Couleur au survol */
+}

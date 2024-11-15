@@ -1,0 +1,67 @@
+/* Style global du formulaire */
+form {
+  display: flex;
+  align-items: center; /* Aligne les éléments au centre sur l'axe vertical */
+  gap: 15px; /* Espacement entre les éléments */
+  max-width: 650px; /* Limite la largeur du formulaire */
+  margin: 0 auto; /* Centre le formulaire horizontalement */
+
+  border-radius: 8px;
+
+}
+
+/* Style des champs input */
+input {
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none; /* Retire le contour par défaut au focus */
+  width: 200px; /* Largeur fixe des champs */
+  transition: all 0.3s ease; /* Transition fluide pour les effets */
+}
+
+/* Effet focus pour les inputs */
+input:focus {
+  border-color: #3785F2; /* Bordure verte lorsque l'input est sélectionné */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Ombre douce autour de l'input */
+}
+
+/* Style des placeholders (texte dans les champs vides) */
+input::placeholder {
+  color: #aaa; /* Texte de placeholder gris clair */
+  font-style: italic;
+}
+
+/* Style du bouton */
+button {
+  padding: 12px 20px;
+  border: none;
+  background-color: #3785F2; /* Vert */
+  color: white;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 200px;
+}
+
+button:hover {
+  background-color: #0C1F3C; /* Changement de couleur au survol */
+}
+
+button:active {
+  background-color: #3e8e41; /* Couleur lors du clic */
+}
+
+/* Optionnel : style pour l'erreur (si tu veux afficher un message d'erreur) */
+input.error {
+  border-color: #f44336; /* Bordure rouge en cas d'erreur */
+  background-color: #ffe6e6; /* Fond légèrement rose pour l'erreur */
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
