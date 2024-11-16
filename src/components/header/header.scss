@@ -1,0 +1,110 @@
+// Variables
+$header-bg-color: #0C1F3C;
+$header-text-color: white;
+$nav-bg-color: #3785F2;
+$button-bg-color: #007bff;
+$button-hover-color: #0056b3;
+$link-hover-color: #0C1F3C;
+
+/* src/components/Header.scss */
+
+.header {
+  background-color: $header-bg-color;
+  color: $header-text-color;
+  padding-top: 10px;
+
+  &-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    padding: 0 15px;
+  }
+}
+
+.profile-icon {
+  padding-right: 50px;
+  font-size: 1.5rem;
+  color: $header-text-color;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.auth-button {
+  background-color: $button-bg-color;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $button-hover-color;
+  }
+}
+
+main {
+  margin-top: 30px;
+}
+
+.title {
+  font-size: 1.8em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  &-img {
+    height: 90px;
+    width: auto;
+    margin-right: 20px;
+  }
+}
+
+.header-nav {
+  background-color: $nav-bg-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  gap: 40px;
+}
+
+.nav-list {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin-left: 120px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.nav-link {
+  color: $header-text-color;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  display: inline-block;
+  padding-left: 10px;
+
+  &:hover {
+    color: $link-hover-color;
+  }
+}

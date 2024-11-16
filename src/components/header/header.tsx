@@ -1,28 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom"; // Importation de Link pour la navigation
-import "./header.css"; // Importation du fichier CSS séparé
-import logo from "../../assets/images/logosimple.png"; // Importation du logo
-
-
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./header.scss";
+import logo from "../../assets/images/logosimple.png";
+import ModalLogin from "../modalLogin/modalLogin"; // Import de la modale
+import "../../styles/commun.scss";
 
 const Header: React.FC = () => {
-  // Définition d'une fonction onLogin, qui sera passée à LoginInput
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Fonction pour ouvrir la modale
+  const openModal = () => setIsModalOpen(true);
+  // Fonction pour fermer la modale
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <header className="header">
       {/* Première ligne avec logo et icône de profil */}
       <div className="header-title">
         <div className="logo">
-          {/* Affichage du logo */}
           <img src={logo} alt="Logo" className="logo-img" />
           <h1>Pet Foster Connect</h1>
         </div>
 
-        {/* Icône de profil Font Awesome */}
-        <div className="profile-icon">
-          <i className="fa-solid fa-user"></i> {/* Icône de profil */}
-        </div>
+        {/* Remplacer l'icône de profil par le bouton de connexion */}
+        <button className="auth-button" onClick={openModal}>
+          Connexion / Inscription
+        </button>
       </div>
 
       {/* Deuxième ligne - Navigation */}
@@ -47,6 +50,9 @@ const Header: React.FC = () => {
           </li>
         </ul>
       </div>
+
+      {/* Modale de connexion */}
+      <ModalLogin show={isModalOpen} onClose={closeModal} />
     </header>
   );
 };

@@ -1,0 +1,98 @@
+/* Définition des variables */
+:root {
+  --primary-color: #4CAF50; /* Couleur principale */
+  --primary-hover-color: #45a049; /* Couleur hover pour le bouton */
+  --input-border-color: #ccc; /* Couleur des bordures des inputs */
+  --input-padding: 10px; /* Padding des inputs */
+  --font-size: 14px; /* Taille de police des inputs */
+  --button-padding: 10px; /* Padding du bouton */
+  --button-font-size: 16px; /* Taille de police du bouton */
+  --container-padding: 20px; /* Padding général du container */
+  --column-gap: 30px; /* Espacement entre les colonnes */
+  --form-width: 60%; /* Largeur du formulaire */
+  --input-width: 80%; /* Largeur des inputs */
+  --button-width: 40%; /* Largeur du bouton */
+  --header-margin-bottom: 10px; /* Marge sous le titre */
+}
+
+/* Appliquer des styles spécifiques à la page Signup */
+.signupFaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Aligne les éléments vers le haut */
+  height: 100vh;
+  width: 100vw;
+  padding: var(--container-padding);
+  margin: 0;
+  overflow: hidden; /* Cela permet d'empêcher un débordement qui pourrait créer un espace vide */
+}
+
+/* Enlever tout margin et padding du header spécifique */
+.signupFaContainer header {
+  margin: 0; /* Enlève la marge du header */
+  padding: 0; /* Enlève le padding du header */
+}
+
+.signupFaContainer h2 {
+  margin-top: 0; /* Supprime la marge en haut */
+  padding-top: 0; /* Supprime le padding du titre */
+  margin-bottom: var(--header-margin-bottom); /* Ajuste l'espacement sous le titre */
+}
+
+.signupFaForm {
+  display: flex;
+  justify-content: space-between;
+  width: var(--form-width);
+  gap: var(--column-gap);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.leftColumn, .rightColumn {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+  flex-grow: 1;
+}
+
+.inputGroup {
+  margin-bottom: 15px;
+}
+
+.inputGroup label {
+    color: #fafafa;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.inputGroup input {
+  width: var(--input-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--input-padding);
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  font-size: var(--font-size);
+  box-sizing: border-box;
+}
+
+.signupFaButton {
+  margin-top: 20px;
+  width: var(--button-width);
+  padding: var(--button-padding);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: var(--button-font-size);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.signupFaButton:hover {
+  background-color: var(--primary-hover-color);
+}

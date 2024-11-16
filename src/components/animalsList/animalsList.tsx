@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchAnimals, IAnimal } from "../../api";
-import "./animalsList.css";
+import "./animalsList.scss";
+
 
 const Animals: React.FC = () => {
   // ! État pour stocker les animaux, l'état de chargement et les erreurs
