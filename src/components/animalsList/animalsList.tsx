@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { fetchAnimals, IAnimal } from "../../api";
 import "./animalsList.scss";
 
-
 const Animals: React.FC = () => {
   // ! État pour stocker les animaux, l'état de chargement et les erreurs
   const [animals, setAnimals] = useState<IAnimal[]>([]);
@@ -11,6 +10,9 @@ const Animals: React.FC = () => {
 
   // ! Effet pour charger les animaux au montage du composant
   useEffect(() => {
+    // Ajouter une classe spécifique au body
+    document.body.classList.add("animals-page");
+
     const loadAnimals = async () => {
       try {
         setIsLoading(true);
@@ -25,6 +27,11 @@ const Animals: React.FC = () => {
       }
     };
     loadAnimals();
+
+    // Nettoyer l'effet au démontage du composant
+    return () => {
+      document.body.classList.remove("animals-page");
+    };
   }, []);
 
   // ! Fonction pour rendre un élément d'animal
@@ -57,12 +64,7 @@ const Animals: React.FC = () => {
             <strong></strong> {animal.breed}
           </p>
         )}
-        {animal.age && (
-          <p>
-            {animal.age} ans
-            
-          </p>
-        )}
+        {animal.age && <p>{animal.age} ans</p>}
       </div>
     </li>
   );
@@ -70,7 +72,6 @@ const Animals: React.FC = () => {
   // ! Rendu du composant Animals
   return (
     <main className="Animals">
-     {/*  <h1>Animaux</h1> */}
       {isLoading && <p className="loading">Chargement...</p>}
       {error && <p className="error">{error}</p>}
       {!isLoading &&

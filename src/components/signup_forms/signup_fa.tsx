@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./signup.scss";
+import catdog from "../../assets/images/catdog.png"; 
 
 const Signup_fa: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,17 @@ const Signup_fa: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
+
+  // Ajouter une classe au body quand la page est rendue
+  useEffect(() => {
+    // Ajouter la classe 'signup-asso-fa' au body
+    document.body.classList.add("signup-fa-page");
+
+    // Nettoyer (enlever la classe) lorsque le composant est démonté
+    return () => {
+      document.body.classList.remove("signup-fa-page");
+    };
+  }, []); // Le tableau vide signifie que l'effet ne se lance qu'une seule fois au montage du composant
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -31,9 +43,14 @@ const Signup_fa: React.FC = () => {
   };
 
   return (
-    <section className="signupFaContainer">
+    <section className="signupContainer">
+      <img
+        src={catdog} // Utilisation correcte de la variable importée
+        alt="catdog"
+        className="image" // Classe pour styliser l'image
+      />
       <h2>Inscription Famille d'Accueil</h2>
-      <form onSubmit={handleSubmit} className="signupFaForm">
+      <form onSubmit={handleSubmit} className="signupForm">
         <div className="leftColumn">
           <div className="inputGroup">
             <label htmlFor="nom">Nom</label>
@@ -99,7 +116,9 @@ const Signup_fa: React.FC = () => {
               required
             />
           </div>
+        </div>
 
+        <div className="rightColumn">
           <div className="inputGroup">
             <label htmlFor="telephone">Téléphone</label>
             <input
@@ -112,9 +131,6 @@ const Signup_fa: React.FC = () => {
               required
             />
           </div>
-        </div>
-
-        <div className="rightColumn">
           <div className="inputGroup">
             <label htmlFor="email">E-mail</label>
             <input
@@ -155,8 +171,8 @@ const Signup_fa: React.FC = () => {
           </div>
         </div>
 
-        <button type="submit" className="signupFaButton">
-          S'inscrire
+        <button type="submit" className="signupButton">
+          Je valide mon inscription
         </button>
       </form>
     </section>
