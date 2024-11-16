@@ -32,6 +32,14 @@ main{
   margin: 0; /* Enlever la marge */
 }
 
+.logo{
+  display: flex;
+  align-items: center;
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
 .logo-img {
 
   height: 90px; /* Taille du logo */
@@ -71,8 +79,12 @@ main{
   font-size: 1em; /* Taille de la police */
   font-weight: bold; /* Liens en gras */
   transition: color 0.3s ease; /* Effet de transition pour le hover */
+   display: inline-block; /* Permet de gérer correctement le pseudo-élément */
+   padding-left: 10px;
+   
 }
 
 .nav-link:hover {
   color: #0C1F3C; /* Couleur au survol */
+ 
 }

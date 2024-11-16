@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Importation de Link pour la navigation
 import "./header.css"; // Importation du fichier CSS séparé
-import logo from "../../assets/images/logoblanc.png"; // Importation du logo
+import logo from "../../assets/images/logosimple.png"; // Importation du logo
+
 
 
 const Header: React.FC = () => {
@@ -15,9 +16,11 @@ const Header: React.FC = () => {
         <div className="logo">
           {/* Affichage du logo */}
           <img src={logo} alt="Logo" className="logo-img" />
+          <h1>Pet Foster Connect</h1>
         </div>
+
         {/* Icône de profil Font Awesome */}
-        <div className="profile-icon"> 
+        <div className="profile-icon">
           <i className="fa-solid fa-user"></i> {/* Icône de profil */}
         </div>
       </div>
@@ -26,11 +29,13 @@ const Header: React.FC = () => {
       <div className="header-nav">
         <ul className="nav-list">
           <li className="nav-item">
+            <i className="fa-solid fa-house"></i>
             <Link className="nav-link" to="/">
               Accueil
             </Link>
           </li>
           <li className="nav-item">
+            <i className="fa-solid fa-paw"></i>
             <Link className="nav-link" to="/animals">
               Animaux
             </Link>
