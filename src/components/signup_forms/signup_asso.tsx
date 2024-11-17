@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./signup.scss";
-import catdog from "../../assets/images/catdog.png"; 
+
 
 const SignupAssociation: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -42,13 +42,9 @@ const SignupAssociation: React.FC = () => {
 
   return (
     <section className="signupContainer">
-      {/* Utilisation du logo importé ici */}
-      <img
-        src={catdog} // Utilisation correcte de la variable importée
-        alt="catdog"
-        className="image" // Classe pour styliser l'image
-      />
-   
+
+      <h1>Inscription Association</h1>
+
       <form onSubmit={handleSubmit} className="signupForm">
         <div className="leftColumn">
           <div className="inputGroup">

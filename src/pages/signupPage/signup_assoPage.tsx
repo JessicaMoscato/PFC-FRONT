@@ -8,7 +8,7 @@ const signup_assoPage: React.FC = () => {
   return (
     <div className="signup-asso-page">
          <main>
-        <h1>Inscription Association</h1>
+        
         <Signup_asso />
       </main>
     </div>

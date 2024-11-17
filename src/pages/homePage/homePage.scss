@@ -1,7 +1,62 @@
-h1 {
-    text-align: center;
-    font-size: 2rem;
-    color: white;
-    margin-top: 2rem;
+.home-container {
+  width: 100vw;
+  height: 100vh;  /* Prend toute la hauteur de la fenêtre */
+  background-image: url('../../assets/images/img-homepage.webp');  /* Chemin de ton image */
+  background-size: auto 100%;  /* L'image occupe toute la hauteur sans se déformer */
+  background-repeat: no-repeat;
+  background-position: left center;  /* L'image est centrée verticalement à gauche */
+  display: flex;
+  flex-direction: column;  /* Ajoute cette ligne pour permettre au titre d'être en haut et le contenu en bas */
+  justify-content: flex-start;  /* Assure-toi que le titre reste en haut */
+}
+
+.home-title {
+  width: 100vw;  /* Pour que le titre occupe toute la largeur du conteneur */
+  text-align: center;  /* Centrer le titre horizontalement */
+  margin-top: 2rem;  /* Un peu d'espace en haut */
+  font-size: 3rem;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: row;  /* Positionner l'image à gauche et le texte à droite */
+  width: 100%;
+  height: 100%;
+  margin-right: 50px;
+  align-items: center;
+}
+
+.home-text-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* Espacer les éléments de haut en bas */
+  align-items: center;  /* Centrer les éléments horizontalement */
+  color: white;
+  background-color: #32494d33;  /* Fond sombre semi-transparent */
+  border-radius: 50px;
+  flex: 1;  /* Le texte occupe la deuxième moitié de l'écran */
+  padding: 20px;
+  height: 40%;  /* Prendre toute la hauteur disponible */
+  margin-left: 900px;
+  margin-right: 50px;
+}
+
+.home-content1,
+.home-content2 {
     
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.home-content1 {
+  margin-top: 2rem;
+  font-size: 1.25rem;
+}
+
+.home-content2 {
+  font-size: 1.25rem;
+}
+
+.bold-text {
+  font-weight: 700; /* Assure-toi que la police permet d'afficher le gras */
 }
