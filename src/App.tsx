@@ -15,7 +15,7 @@ const App: React.FC = () => {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/animals" element={<AnimalsPage />} />
+        <Route path="/animaux" element={<AnimalsPage />} />
         <Route path="/inscription-association" element={<Signup_assoPage />} />
         <Route path="/inscription-famille" element={<Signup_faPage />} />
         {/* Vous pouvez ajouter d'autres routes ici */}

@@ -1,15 +1,15 @@
+//! Composant ModalLogin : Ce composant affiche une fenêtre modale permettant à un utilisateur de se connecter ou de s'inscrire.
+//! Il offre deux modes : connexion via email/mot de passe ou choix du type d'inscription (association ou famille d'accueil).
+//! La gestion des états locaux, des erreurs, et la navigation sont intégrées.
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SigninUser } from "../../api/signin.api"; // Import de la fonction d'API
+import { SigninUser } from "../../api/signin.api"; // Import de la fonction pour l'authentification
+import { IModalLogin } from "../../@types/user";
 import "./modalLogin.scss";
 
-interface ModalLoginProps {
-  show: boolean;
-  onClose: () => void;
-  login: (token: string, userData: any) => void; // Définir le type approprié pour userData
-}
-
-const ModalLogin: React.FC<ModalLoginProps> = ({ show, onClose, login }) => {
+const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
+  //! États locaux pour gérer les informations de connexion et d'erreurs
   const [isChoosingType, setIsChoosingType] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [email, setEmail] = useState<string>("");
@@ -17,9 +17,18 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ show, onClose, login }) => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  //! Fonction pour réinitialiser les états de la modal
+  const resetForm = () => {
+    setIsChoosingType(false);
+    setSelectedOption(null);
+    setEmail("");
+    setPassword("");
+    setError(null);
+  };
+
   if (!show) return null;
 
-  // Fonction de soumission du formulaire de connexion
+  //! Fonction de soumission du formulaire de connexion
   const handleLoginSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError(null); // Réinitialiser l'erreur avant chaque tentative de connexion
@@ -29,7 +38,7 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ show, onClose, login }) => {
       return;
     }
 
-    // Appel API pour la connexion
+    //! Appel API pour la connexion
     try {
       const data = await SigninUser({ email, password });
 
@@ -37,7 +46,8 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ show, onClose, login }) => {
       if (token) {
         // Sauvegarde du token dans le contexte ou localStorage si nécessaire
         login(token, user); // Appel de la fonction login passée en prop
-        onClose();
+        onClose(); // Ferme la modal après une connexion réussie
+        resetForm(); // Réinitialise le formulaire
         navigate("/"); // Rediriger vers la page d'accueil
       } else {
         setError("Nom d'utilisateur ou mot de passe incorrect");
@@ -49,7 +59,8 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ show, onClose, login }) => {
   };
 
   const handleRegisterRedirect = () => {
-    onClose();
+    onClose(); // Ferme la modal après avoir cliqué sur "S'inscrire"
+    resetForm(); // Réinitialise le formulaire
     if (selectedOption === "association") {
       navigate("/inscription-association");
     } else if (selectedOption === "famille") {
@@ -60,7 +71,13 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ show, onClose, login }) => {
   return (
     <div className="modal">
       <div className="modal-content">
-        <span className="close" onClick={onClose}>
+        <span
+          className="close"
+          onClick={() => {
+            onClose();
+            resetForm();
+          }}
+        >
           &times;
         </span>
         {!isChoosingType ? (
