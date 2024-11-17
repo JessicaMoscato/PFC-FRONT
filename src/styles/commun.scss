@@ -1,5 +1,16 @@
-body {
-  font-family: 'Montserrat', sans-serif; /* Application de la police Montserrat */
 
-  
+html, body {
+  font-family: 'Montserrat', sans-serif; /* Application de la police Montserrat */
+  height: 100vh;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+footer {
+  margin-top: auto; /* Permet au footer de se positionner tout en bas de la page */
 }

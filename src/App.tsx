@@ -6,10 +6,13 @@ import AnimalsPage from "./pages/animalPage/animalPage";
 import Signup_assoPage from "./pages/signupPage/signup_assoPage";
 import Signup_faPage from "./pages/signupPage/signup_faPage";
 import HomePage from "./pages/homePage/homePage";
+import Header from "./components/header/header";
+import Footer from "./components/footer/footer";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/animals" element={<AnimalsPage />} />
@@ -17,6 +20,7 @@ const App: React.FC = () => {
         <Route path="/inscription-famille" element={<Signup_faPage />} />
         {/* Vous pouvez ajouter d'autres routes ici */}
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

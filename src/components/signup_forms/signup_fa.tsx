@@ -49,7 +49,7 @@ const Signup_fa: React.FC = () => {
         alt="catdog"
         className="image" // Classe pour styliser l'image
       />
-      <h2>Inscription Famille d'Accueil</h2>
+
       <form onSubmit={handleSubmit} className="signupForm">
         <div className="leftColumn">
           <div className="inputGroup">

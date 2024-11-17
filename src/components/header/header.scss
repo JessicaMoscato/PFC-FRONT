@@ -17,7 +17,7 @@ $link-hover-color: #0C1F3C;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100px;
+    height: 80px;
     padding: 0 15px;
   }
 }
@@ -59,6 +59,12 @@ main {
 .logo {
   display: flex;
   align-items: center;
+  
+.logo-img {
+  height: 60px;
+  width: auto;
+  margin-right: 20px;
+}
 
   h1 {
     font-size: 1.5rem;
