@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { fetchAnimals, IAnimal } from "../../api";
+import { GetAllAnimals } from "../../api/animal.api";
+import { IAnimal } from "../../@types/animal";
 import "./animalsList.scss";
 
 const Animals: React.FC = () => {
@@ -16,7 +17,7 @@ const Animals: React.FC = () => {
     const loadAnimals = async () => {
       try {
         setIsLoading(true);
-        const data = await fetchAnimals();
+        const data = await GetAllAnimals();
         console.log("Données récupérées:", data);
         setAnimals(data);
       } catch (err) {

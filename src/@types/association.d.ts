@@ -1,56 +1,29 @@
-interface IAnimal {
-  id: number;
-  name: string;
-  species: string;
-  breed: string;
-  gender: string;
-  age: number;
-  size: string;
-  description: string;
-  profile_photo: string;
-  photo1: string;
-  photo2: string;
-  photo3: string;
-  id_association: number;
-  id_family: number | null;
-  created_at: string;
-  updated_at: string;
-}
-
-interface IUser {
-  id: number;
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  role: string;
-  created_at: string;
-  updated_at: string;
-}
-
+//! Type pour le modèle "Association"
 export interface IAssociation {
-  id: number;
-  representative: string;
-  address: string;
-  phone: string;
-  description: string;
-  status: string;
-  profile_photo: string;
-  created_at: string;
-  updated_at: string;
-  id_user: number;
-  user: IUser;
-  animals: IAnimal[];
+  id: number; // ID unique de l'association
+  rna_number: string; // Numéro RNA (obligatoire et unique)
+  representative: string; // Nom du représentant (obligatoire)
+  address: string; // Adresse (obligatoire)
+  postal_code: string; // Code postal (obligatoire)
+  city: string; // Ville (obligatoire)
+  phone: string; // Numéro de téléphone (obligatoire)
+  description?: string; // Description de l'association (optionnel)
+  status: string; // Statut de l'association (obligatoire, par défaut "en attente")
+  profile_photo?: string; // Photo de profil de l'association (optionnel)
+  created_at: Date; // Date de création (obligatoire, type Date pour une manipulation correcte)
+  updated_at: Date; // Date de mise à jour (obligatoire, type Date pour une manipulation correcte)
+  id_user?: number; // ID de l'utilisateur associé à l'association
+  user?: IUser; // Relation avec un utilisateur
+  animals?: IAnimal[]; // Liste des animaux associés à l'association
 }
 
+//! Type pour le formulaire d'ajout d'une association
 export interface IAssociationForm {
-  profile_photo: string;
-  lastname: string;
-  firstname: string;
-  email: string;
-  phone: string;
-  address: string;
-  postal_code: string;
-  city: string;
-  description: string;
+  rna_number: string; // Numéro RNA (obligatoire)
+  representative: string; // Nom du représentant (obligatoire)
+  address: string; // Adresse (obligatoire)
+  postal_code: string; // Code postal (obligatoire)
+  city: string; // Ville (obligatoire)
+  phone: string; // Numéro de téléphone (obligatoire)
+  description?: string; // Description de l'association (optionnel)
 }
