@@ -1,34 +1,48 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./header.scss";
 import logo from "../../assets/images/logosimple.png";
-import ModalLogin from "../modalLogin/modalLogin"; // Import de la modale
+import ModalLogin from "../modalLogin/modalLogin";
 import "../../styles/commun.scss";
+import AuthContext from "../../contexts/authContext";
 
 const Header: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user, token, login, logout } = useContext(AuthContext) || {};
 
-  // Fonction pour ouvrir la modale
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
   const openModal = () => setIsModalOpen(true);
-  // Fonction pour fermer la modale
   const closeModal = () => setIsModalOpen(false);
+
+  // On vérifie si `login` est une fonction. Si non, on lui affecte une fonction vide.
+  const safeLogin = login ? login : () => {};
+
+  const isAuthenticated = !!user && !!token;
 
   return (
     <header className="header">
-      {/* Première ligne avec logo et icône de profil */}
       <div className="header-title">
         <div className="logo">
           <img src={logo} alt="Logo" className="logo-img" />
           <h1>Pet Foster Connect</h1>
         </div>
 
-        {/* Remplacer l'icône de profil par le bouton de connexion */}
-        <button className="auth-button" onClick={openModal}>
-          Connexion / Inscription
-        </button>
+        {isAuthenticated ? (
+          <div>
+            <span>
+              {user?.firstname} {user?.lastname}
+            </span>
+            <button className="auth-button" onClick={logout}>
+              Se déconnecter
+            </button>
+          </div>
+        ) : (
+          <button className="auth-button" onClick={openModal}>
+            Connexion / Inscription
+          </button>
+        )}
       </div>
 
-      {/* Deuxième ligne - Navigation */}
       <div className="header-nav">
         <ul className="nav-list">
           <li className="nav-item">
@@ -51,8 +65,8 @@ const Header: React.FC = () => {
         </ul>
       </div>
 
-      {/* Modale de connexion */}
-      <ModalLogin show={isModalOpen} onClose={closeModal} />
+      {/* On passe la fonction `safeLogin` pour s'assurer que la prop `login` ne soit jamais undefined */}
+      <ModalLogin show={isModalOpen} onClose={closeModal} login={safeLogin} />
     </header>
   );
 };
