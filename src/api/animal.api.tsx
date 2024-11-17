@@ -35,7 +35,7 @@ export const GetAnimalById = async (id: string): Promise<IAnimal> => {
 
 /**
  *! Crée un nouvel animal.
- ** Authentification + réservée aux associations.
+ ** Cette fonction nécessite une authentification et est réservée aux associations.
  * @param animalData Les données de l'animal à créer.
  * @param token Le token d'authentification de l'utilisateur.
  * @returns Une promesse qui résout avec l'objet IAnimal créé.
@@ -61,7 +61,7 @@ export const PostAnimal = async (
 
 /**
  *! Modifie un animal existant.
- ** Authentification + réservée aux associations.
+ ** Cette fonction nécessite également une authentification.
  * @param id L'identifiant de l'animal à modifier.
  * @param animalData Les nouvelles données de l'animal.
  * @param token Le token d'authentification de l'utilisateur.
@@ -89,7 +89,7 @@ export const PathAnimal = async (
 
 /**
  *! Supprime un animal.
- ** Authentification + réservée aux associations.
+ ** Cette fonction nécessite une authentification.
  * @param id L'identifiant de l'animal à supprimer.
  * @param token Le token d'authentification de l'utilisateur.
  * @returns Une promesse qui résout sans valeur après la suppression.

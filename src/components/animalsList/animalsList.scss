@@ -1,77 +1,118 @@
+// Variables de couleur
+$primary-color: #1D3A5B; /* Couleur de fond de la page */
+$secondary-color: #0C1F3C; /* Couleur des cartes */
+$highlight-color: #3785F2; /* Couleur de survol des cartes */
+$text-color: white; /* Couleur du texte */
+$button-bg-color: #3785F2; /* Couleur de fond des boutons */
+$button-hover-bg-color: #2569C1; /* Couleur de survol du bouton */
+$filter-bg-color: #0C1F3C; /* Couleur de fond des filtres */
+
+// Corps de la page
 body.animals-page {
-  background-color: #1D3A5B; /* Exemple de couleur de fond pour la page des animaux */
+  background-color: $primary-color;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.animal-item {
-  background-color: #0C1F3C; /* Couleur de fond des cartes */
-  border-radius: 15px; /* Coins arrondis */
-  border: 1px solid white; /* Bordure grise */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
-  margin: 0; /* Pas de marge autour des cartes */
- padding: 0 15px;
-  display: flex; /* Utilisation de flexbox pour centrer le contenu */
-  flex-direction: column; /* Aligne les éléments verticalement */
-  align-items: center; /* Centre le contenu horizontalement */
-  transition: background-color 0.3s ease, transform 0.4s ease-in-out; /* Transition fluide */
-}
-
-.animal-photo {
-  width: 300px; /* Taille fixe de l'image (carrée) */
-  height: 300px; /* Taille fixe de l'image (carrée) */
-  object-fit: cover; /* L'image couvre le conteneur sans déformation */
-  border-radius: 10px; /* Coins arrondis pour l'image */
-  transition: transform 0.4s ease-in-out; /* Transition plus douce pour l'agrandissement */
-}
-
-.animal-details {
-  margin: 10px; /* Espacement pour les détails de l'animal */
-  text-align: center; /* Centre le contenu horizontalement */
-}
-
-.animal-list {
+// Disposition de la page avec aside à gauche et section pour les animaux à droite
+main.Animals {
   display: flex;
-  flex-wrap: wrap; /* Permet aux cartes de passer à la ligne suivante */
-  justify-content: space-evenly; /* Espace entre les cartes */
-  list-style-type: none; /* Supprime les puces de la liste */
+  min-height: 100vh;
+  padding: 20px;
+}
+
+// Section des filtres (aside)
+.filters {
+  background-color: $filter-bg-color;
+  padding: 20px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: max-content;
+
+  select,
+  button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+
+  button {
+    background-color: $button-bg-color;
+    color: $text-color;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $button-hover-bg-color;
+    }
+  }
+}
+
+// Section pour la liste des animaux
+.animal-list {
+ 
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 20px;
+  list-style-type: none;
   padding: 0;
   margin: 0;
-  gap: 20px; /* Espace entre les cartes */
 }
 
-/* Effet de survol */
-.animal-item:hover {
-  background-color: #3785F2; /* Changer la couleur de fond */
-  transform: scale(1.05); /* Agrandir légèrement la carte */
+// Carte d'animal
+.animal-item {
+  background-color: $secondary-color;
+  border-radius: 15px;
+  border: 1px solid $text-color;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.4s ease-in-out;
+  padding: 15px;
+  width: calc(25% - 60px); /* Trois cartes par ligne avec une taille plus petite */
+
+  &:hover {
+    background-color: $highlight-color;
+    transform: scale(1.05);
+  }
+
+  .animal-photo {
+    width: 200px; /* Taille de l'image réduite */
+    height: 200px; /* Taille de l'image réduite */
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .animal-details {
+    text-align: center;
+    color: $text-color;
+  }
+
+  .animal-name {
+    color: $text-color;
+    font-weight: bold;
+  }
+
+  h2,
+  p {
+    margin: 10px 0;
+  }
 }
 
-h1 {
-  margin: 20px;
-  font-size: 2.5em;
-  text-align: center;
-  color: white;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-h2 {
-  padding: 10px;
-  font-weight: bold;
-  font-size: 1.5em;
-  color: white;
-  margin-bottom: 5px;
-}
-
-p {
-  margin: 2px 0;
-  color: white;
-}
-
-
-/*! Media Queries pour adapter la disposition des cartes */
-
+// Media queries pour ajuster la disposition des cartes
 @media (max-width: 1200px) {
   .animal-item {
-    width: calc(33.33% - 20px); /* 3 cartes par ligne */
+    width: calc(25% - 20px); /* Trois cartes par ligne avec une taille plus petite */
   }
 }
 
@@ -85,4 +126,23 @@ p {
   .animal-item {
     width: 100%; /* 1 carte par ligne */
   }
+
+  .filters {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  main.Animals {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+// Chargement et message d'erreur
+.loading,
+.error {
+  color: $text-color;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 20px;
 }
