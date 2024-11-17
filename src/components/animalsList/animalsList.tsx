@@ -221,7 +221,7 @@ const Animals: React.FC = () => {
         (filteredAnimals.length > 0 ? (
           <ul className="animal-list">{filteredAnimals.map(renderAnimal)}</ul>
         ) : (
-          <p>Aucun animal trouvé.</p>
+          <p id="no-animals-found">Aucun animal trouvé</p>
         ))}
     </main>
   );

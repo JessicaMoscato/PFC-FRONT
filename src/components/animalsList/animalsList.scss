@@ -128,6 +128,14 @@ main.Animals {
   }
 }
 
+#no-animals-found {
+  color: white;
+  text-align: center;
+  margin-top: 100px;
+  margin-left: 540px;
+  font-size: 1.5rem;
+  
+}
 
 // Media queries pour ajuster la disposition des cartes
 @media (max-width: 1200px) {
