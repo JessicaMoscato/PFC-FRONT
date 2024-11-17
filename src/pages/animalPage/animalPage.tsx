@@ -8,7 +8,7 @@ const AnimalsPage: React.FC = () => {
   return (
     <div className="animals-page">
       
-      <h1>Nos animaux</h1>
+   
       <main>
         <AnimalsList />
       </main>
