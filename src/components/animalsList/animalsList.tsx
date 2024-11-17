@@ -4,40 +4,39 @@ import { IAnimal } from "../../@types/animal";
 import "./animalsList.scss";
 
 const Animals: React.FC = () => {
-  // ! État pour stocker les animaux, l'état de chargement, les erreurs, et les filtres
   const [animals, setAnimals] = useState<IAnimal[]>([]);
-  const [filteredAnimals, setFilteredAnimals] = useState<IAnimal[]>([]); // Etat pour animaux filtrés
+  const [filteredAnimals, setFilteredAnimals] = useState<IAnimal[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [filters, setFilters] = useState({
     breed: "",
     species: "",
     size: "",
-    ageRange: "all", // Ajout du filtre âge
+    ageRange: "all",
   });
 
-  // ! États pour les options des filtres
   const [breeds, setBreeds] = useState<string[]>([]);
   const [species, setSpecies] = useState<string[]>([]);
   const [sizes, setSizes] = useState<string[]>([]);
 
-  // ! Effet pour charger les animaux au montage du composant
   useEffect(() => {
-    // Ajouter une classe spécifique au body
     document.body.classList.add("animals-page");
 
     const loadAnimals = async () => {
       try {
         setIsLoading(true);
         const data = await GetAllAnimals();
-        console.log("Données récupérées:", data);
         setAnimals(data);
-        setFilteredAnimals(data); // Initialiser avec tous les animaux
+        setFilteredAnimals(data);
 
         // Extraire les options uniques pour les filtres
         const uniqueBreeds = Array.from(
           new Set(data.map((animal) => animal.breed))
         ).filter(Boolean);
+
+        // Trier les races par ordre alphabétique
+        const sortedBreeds = uniqueBreeds.sort((a, b) => a.localeCompare(b));
+
         const uniqueSpecies = Array.from(
           new Set(data.map((animal) => animal.species))
         ).filter(Boolean);
@@ -45,7 +44,7 @@ const Animals: React.FC = () => {
           new Set(data.map((animal) => animal.size))
         ).filter(Boolean);
 
-        setBreeds(uniqueBreeds);
+        setBreeds(sortedBreeds); // Mettre les races triées
         setSpecies(uniqueSpecies);
         setSizes(uniqueSizes);
       } catch (err) {
@@ -57,38 +56,32 @@ const Animals: React.FC = () => {
     };
     loadAnimals();
 
-    // Nettoyer l'effet au démontage du composant
     return () => {
       document.body.classList.remove("animals-page");
     };
   }, []);
 
-  // ! Fonction pour appliquer les filtres
   const applyFilters = () => {
     let filtered = [...animals];
 
-    // Filtrage par race
     if (filters.breed) {
       filtered = filtered.filter((animal) =>
         animal.breed.toLowerCase().includes(filters.breed.toLowerCase())
       );
     }
 
-    // Filtrage par espèce
     if (filters.species) {
       filtered = filtered.filter((animal) =>
         animal.species.toLowerCase().includes(filters.species.toLowerCase())
       );
     }
 
-    // Filtrage par taille
     if (filters.size) {
       filtered = filtered.filter((animal) =>
         animal.size.toLowerCase().includes(filters.size.toLowerCase())
       );
     }
 
-    // Filtrage par âge
     if (filters.ageRange !== "all") {
       if (filters.ageRange === "under-2") {
         filtered = filtered.filter((animal) => animal.age < 2);
@@ -101,10 +94,9 @@ const Animals: React.FC = () => {
       }
     }
 
-    setFilteredAnimals(filtered); // Met à jour la liste filtrée
+    setFilteredAnimals(filtered);
   };
 
-  // ! Fonction pour gérer le changement de filtre
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFilters((prevFilters) => ({
@@ -113,7 +105,6 @@ const Animals: React.FC = () => {
     }));
   };
 
-  // ! Fonction pour réinitialiser les filtres
   const resetFilters = () => {
     setFilters({
       breed: "",
@@ -121,15 +112,13 @@ const Animals: React.FC = () => {
       size: "",
       ageRange: "all",
     });
-    setFilteredAnimals(animals); // Remet la liste filtrée à tous les animaux
+    setFilteredAnimals(animals);
   };
 
-  // ! Fonction pour rendre un élément d'animal
   const renderAnimal = (animal: IAnimal) => (
     <li key={animal.id} className="animal-item">
       <h2 className="animal-name">{animal.name}</h2>
 
-      {/* Photo principale */}
       {animal.profile_photo && (
         <img
           src={
@@ -142,7 +131,6 @@ const Animals: React.FC = () => {
         />
       )}
 
-      {/* Détails de l'animal */}
       <div className="animal-details">
         {animal.species && (
           <p>
@@ -163,14 +151,20 @@ const Animals: React.FC = () => {
     </li>
   );
 
-  // ! Rendu du composant Animals
   return (
     <main className="Animals">
       {isLoading && <p className="loading">Chargement...</p>}
       {error && <p className="error">{error}</p>}
 
-      {/* Formulaire de filtrage */}
       <div className="filters">
+        <button
+          id="reset-filters-btn"
+          className="reset-btn"
+          onClick={resetFilters}
+        >
+          <i className="fa-solid fa-xmark"></i>
+        </button>
+
         <select
           name="breed"
           value={filters.breed}
@@ -217,12 +211,11 @@ const Animals: React.FC = () => {
           <option value="over-7">Plus de 7 ans</option>
         </select>
 
-        <button onClick={applyFilters}>Appliquer les filtres</button>
-        {/* Bouton pour réinitialiser les filtres */}
-        <button onClick={resetFilters}>Réinitialiser les filtres</button>
+        <button id="apply-filters-btn" onClick={applyFilters}>
+          Appliquer les filtres
+        </button>
       </div>
 
-      {/* Affichage des animaux filtrés */}
       {!isLoading &&
         !error &&
         (filteredAnimals.length > 0 ? (
