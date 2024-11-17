@@ -2,23 +2,21 @@
 
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./components/header/header"; // Import du Header
-import "@fortawesome/fontawesome-free/css/all.min.css";
-
-
-import Animal from "./components/animalsList/animalsList"; // Exemple de composant pour la route
+import AnimalsPage from "./pages/animalPage/animalPage";
+import Signup_assoPage from "./pages/signupPage/signup_assoPage";
+import Signup_faPage from "./pages/signupPage/signup_faPage";
+import HomePage from "./pages/homePage/homePage";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <Header /> {/* Affichage du Header */}
-      <main>
-        <Routes>
-          <Route path="/animals" element={<Animal />} />
-          {/* Vous pouvez ajouter d'autres routes ici */}
-        </Routes>
-      </main>
-     {/*  <Footer /> */} 
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/animals" element={<AnimalsPage />} />
+        <Route path="/inscription-association" element={<Signup_assoPage />} />
+        <Route path="/inscription-famille" element={<Signup_faPage />} />
+        {/* Vous pouvez ajouter d'autres routes ici */}
+      </Routes>
     </BrowserRouter>
   );
 };

@@ -1,0 +1,176 @@
+// Variables de couleur
+$primary-color: #1D3A5B; /* Couleur de fond de la page */
+$secondary-color: #0C1F3C; /* Couleur des cartes */
+$highlight-color: #3785F2; /* Couleur de survol des cartes */
+$text-color: white; /* Couleur du texte */
+$bg-apply-filter-buton: #1f8516; /* Couleur de fond des boutons */
+$bg-reset-filter-buton: #a32424;
+$button-hover-bg-color: #2569C1; /* Couleur de survol du bouton */
+$filter-bg-color: #0C1F3C; /* Couleur de fond des filtres */
+
+// Corps de la page
+body.animals-page {
+  background-color: $primary-color;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+// Disposition de la page avec aside à gauche et section pour les animaux à droite
+main.Animals {
+  display: flex;
+  min-height: 100vh;
+  padding:10px;
+}
+
+// Section des filtres (aside)
+.filters {
+  background-color: $filter-bg-color;
+  padding:20px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: max-content;
+
+  select,
+  button {
+    padding: 8px;
+    border-radius: 5px;
+     font-size: 1rem;
+  }
+
+  #apply-filters-btn {
+    padding: 4px;
+    background-color: $bg-apply-filter-buton;
+    color: $text-color;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 1px solid #ffffff;
+
+    &:hover {
+      background-color: $button-hover-bg-color;
+    }
+  }
+}
+
+//icone poubelle pour reinitialiser
+.reset-btn {
+  background: none; /* Pas de fond */
+  text-align: end;
+  border: none; /* Pas de bordure */
+  color: #ffffff; /* Couleur de l'icône */
+  font-size: 20px; /* Taille de l'icône */
+  cursor: pointer; /* Curseur de la main pour indiquer que c'est cliquable */
+
+  &:hover {
+    color: #3785F2; /* Couleur de survol de l'icône */
+  }
+  
+}
+
+// Section pour la liste des animaux
+.animal-list {
+ 
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 20px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.animal-item {
+  background-color: $secondary-color;
+  border-radius: 15px;
+  border: 1px solid $text-color;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.4s ease-in-out;
+  padding: 15px;
+  width: calc(25% - 60px); /* Trois cartes par ligne avec une taille plus petite */
+  height: 300px; /* Hauteur fixe pour garder la même taille */
+
+  &:hover {
+    background-color: $highlight-color;
+    transform: scale(1.05);
+  }
+
+  .animal-photo {
+    width: 200px; 
+    height: 200px; 
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.4s ease-in-out;
+    margin-bottom: 10px; /* Un petit espacement pour le texte */
+  }
+
+  .animal-details {
+    text-align: center;
+    color: $text-color;
+    flex-grow: 1; /* Permet au texte de s'étirer si nécessaire mais ne modifie pas la taille de la carte */
+  }
+
+  .animal-name {
+    color: $text-color;
+    font-weight: bold;
+  }
+
+  h2,
+  p {
+    margin: 10px 0;
+  }
+}
+
+#no-animals-found {
+  color: white;
+  text-align: center;
+  margin-top: 100px;
+  margin-left: 540px;
+  font-size: 1.5rem;
+  
+}
+
+// Media queries pour ajuster la disposition des cartes
+@media (max-width: 1200px) {
+  .animal-item {
+    width: calc(25% - 20px); /* Trois cartes par ligne avec une taille plus petite */
+  }
+}
+
+@media (max-width: 800px) {
+  .animal-item {
+    width: calc(50% - 20px); /* 2 cartes par ligne */
+  }
+}
+
+@media (max-width: 480px) {
+  .animal-item {
+    width: 100%; /* 1 carte par ligne */
+  }
+
+  .filters {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  main.Animals {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+// Chargement et message d'erreur
+.loading,
+.error {
+  color: $text-color;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 20px;
+}

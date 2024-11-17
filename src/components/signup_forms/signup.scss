@@ -1,0 +1,110 @@
+body.signup-asso-page{
+  background: #1D3A5B; /* fond de la page asso form */
+}
+
+body.signup-fa-page{
+  background: #1D3A5B; /* fond de la page asso form */
+}
+/* Définition des variables */
+:root {
+  --primary-color: #317e33; /* Couleur principale */
+  --primary-hover-color: #18411a; /* Couleur hover pour le bouton */
+  --input-border-color: #ccc; /* Couleur des bordures des inputs */
+  --input-padding: 10px; /* Padding des inputs */
+  --font-size: 14px; /* Taille de police des inputs */
+  --button-font-size: 16px; /* Taille de police du bouton */
+
+}
+
+.image{
+  margin-right: 70px;
+  width: 5%;
+  height: auto;
+}
+/* Ajouter ces styles pour la page d'inscription */
+body.signup-asso-page,
+body.signup-fa-page {
+  margin: 0; /* Empêche le scroll global */
+  padding: 0; /* Enlève tout padding */
+  height: 100vh; /* La page prend toute la hauteur */
+  display: flex;
+  flex-direction: column; /* Permet de placer le header en haut et le contenu en dessous */
+  overflow: hidden; /* Évite le scroll */
+}
+
+.signupContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start; /* Alignement vers le haut */
+  flex-grow: 1; /* Le conteneur prend l'espace restant */
+  overflow-y: auto; /* Permet le scroll uniquement sur le formulaire si nécessaire */
+}
+
+.signupContainer header {
+  margin: 0;
+  padding: 0;
+  height: 100px; /* Hauteur du header */
+}
+
+.signupContainer h2 {
+  margin-right: 70px;
+  padding-bottom: 30px;
+  margin-bottom: 5px;
+}
+
+.signupForm {
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+  gap: 10px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.leftColumn,
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+  flex-grow: 1;
+}
+
+.inputGroup {
+  margin-bottom: 15px;
+}
+
+.inputGroup label {
+  color: #fafafa;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.inputGroup input {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--input-padding);
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  font-size: var(--font-size);
+  box-sizing: border-box;
+}
+
+.signupButton {
+  width: 30%;
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: var(--button-font-size);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 90px;
+}
+
+.signupButton:hover {
+  background-color: var(--primary-hover-color);
+}
