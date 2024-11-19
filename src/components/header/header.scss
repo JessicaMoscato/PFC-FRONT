@@ -6,12 +6,18 @@ $button-bg-color: #007bff;
 $button-hover-color: #0056b3;
 $link-hover-color: #0C1F3C;
 
-/* src/components/Header.scss */
+/* Exemple de style pour le lien actif */
+.nav-link.active-link {
+  color: #0C1F3C; /* Couleur de votre choix */
+  
+}
 
 .header {
   background-color: $header-bg-color;
   color: $header-text-color;
-  padding-top: 10px;
+   margin: 0;
+  padding: 0;
+  width: 100%;
 
   &-title {
     display: flex;
@@ -100,18 +106,26 @@ main {
   }
 }
 
+/* Style de base pour le lien */
 .nav-link {
-  color: $header-text-color;
+  font-size: 1.2rem;
   text-decoration: none;
-  font-size: 1em;
-  font-weight: bold;
-  transition: color 0.3s ease;
-  display: inline-block;
-  padding-left: 10px;
-
-  &:hover {
-    color: $link-hover-color;
-  }
+  color: #000; /* Couleur du texte */
+  padding: 4px 10px; /* Espace autour du texte, pour un effet de bouton */
+  border-radius: 5px; /* Bordures arrondies */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transition pour fond et effet de transformation */
+  display: inline-block; /* Pour appliquer correctement le padding */
+  cursor: pointer; /* Montre un curseur en forme de main */
 }
+
+/* Style spécifique pour le lien actif (comme un bouton) */
+.nav-link.active-link {
+  background-color: #0C1F3C; /* Couleur de fond du bouton */
+  color: white; /* Texte blanc */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre autour du bouton */
+  transform: translateY(-2px); /* Effet de décalage pour simuler un clic */
+}
+
+
 
 
