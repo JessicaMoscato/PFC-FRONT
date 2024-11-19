@@ -1,5 +1,13 @@
-body {
-  font-family: 'Montserrat', sans-serif; /* Application de la police Montserrat */
+/* Applique la police Montserrat globalement */
+body, .header, .logo, .nav-link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  font-style: normal;
+}
 
-  
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }

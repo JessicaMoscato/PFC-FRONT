@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import "./signup.scss";
-import catdog from "../../assets/images/catdog.png"; 
+import { useState, useEffect } from "react"; // Importation des hooks React nécessaires
+import "./signup.scss"; // Importation du fichier SCSS pour le style du composant
 
+//! Définition du composant Signup_fa
 const Signup_fa: React.FC = () => {
+  //! Déclaration de l'état local formData avec les champs du formulaire
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -15,9 +16,10 @@ const Signup_fa: React.FC = () => {
     confirmPassword: "",
   });
 
+  
   // Ajouter une classe au body quand la page est rendue
   useEffect(() => {
-    // Ajouter la classe 'signup-asso-fa' au body
+    // Ajouter la classe 'signup-fa-page' au body lors du montage du composant
     document.body.classList.add("signup-fa-page");
 
     // Nettoyer (enlever la classe) lorsque le composant est démonté
@@ -26,31 +28,33 @@ const Signup_fa: React.FC = () => {
     };
   }, []); // Le tableau vide signifie que l'effet ne se lance qu'une seule fois au montage du composant
 
+  // Fonction pour mettre à jour formData à chaque changement d'input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value }); // Mise à jour de formData avec la nouvelle valeur
   };
 
+  //! Fonction pour gérer l'envoi du formulaire
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // Empêcher le comportement par défaut du formulaire (rechargement de la page)
 
+    // Vérifier si les mots de passe correspondent
     if (formData.password !== formData.confirmPassword) {
-      alert("Les mots de passe ne correspondent pas !");
+      alert("Les mots de passe ne correspondent pas !"); // Alerte si les mots de passe sont différents
       return;
     }
 
-    console.log("Formulaire soumis : ", formData);
+    console.log("Formulaire soumis : ", formData); // Affichage des données du formulaire dans la console
   };
 
   return (
     <section className="signupContainer">
-      <img
-        src={catdog} // Utilisation correcte de la variable importée
-        alt="catdog"
-        className="image" // Classe pour styliser l'image
-      />
-      <h2>Inscription Famille d'Accueil</h2>
+      {" "}
+
+      <h1>Inscription Famille d'accueil</h1> 
+      {/* Formulaire d'inscription */}
       <form onSubmit={handleSubmit} className="signupForm">
+        {/* Colonne gauche du formulaire contenant les informations personnelles */}
         <div className="leftColumn">
           <div className="inputGroup">
             <label htmlFor="nom">Nom</label>
@@ -60,8 +64,8 @@ const Signup_fa: React.FC = () => {
               name="nom"
               placeholder="Entrez votre nom"
               value={formData.nom}
-              onChange={handleChange}
-              required
+              onChange={handleChange} // Gérer les changements d'entrée
+              required // Le champ est obligatoire
             />
           </div>
 
@@ -118,6 +122,7 @@ const Signup_fa: React.FC = () => {
           </div>
         </div>
 
+        {/* Colonne droite du formulaire contenant les informations de contact et de sécurité */}
         <div className="rightColumn">
           <div className="inputGroup">
             <label htmlFor="telephone">Téléphone</label>
@@ -131,6 +136,7 @@ const Signup_fa: React.FC = () => {
               required
             />
           </div>
+
           <div className="inputGroup">
             <label htmlFor="email">E-mail</label>
             <input
@@ -171,6 +177,7 @@ const Signup_fa: React.FC = () => {
           </div>
         </div>
 
+        {/* Bouton de soumission du formulaire */}
         <button type="submit" className="signupButton">
           Je valide mon inscription
         </button>
@@ -179,4 +186,4 @@ const Signup_fa: React.FC = () => {
   );
 };
 
-export default Signup_fa;
+export default Signup_fa; 

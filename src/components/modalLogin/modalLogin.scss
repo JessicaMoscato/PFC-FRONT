@@ -1,7 +1,7 @@
 :root {
   --bg-modal: #060F1E;
   --bg-button: #228B22;
-  --bg-hover-button: #196419;
+  --bg-hover-button: #335333;
   --color-title: #000000;
 }
 
@@ -121,16 +121,10 @@ h2 {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: var(--bg-hover-button);
   }
 
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-}
+ 
+
 
 .switch-form {
   margin-top: 20px;

@@ -1,56 +1,66 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import "./signup.scss";
-import catdog from "../../assets/images/catdog.png"; 
 
+
+//! Composant SignupAssociation
 const SignupAssociation: React.FC = () => {
+  //! Initialisation de l'état local pour gérer les données du formulaire
   const [formData, setFormData] = useState({
-    nomAssociation: "",
-    nom: "",
-    prenom: "",
-    adresse: "",
-    codePostal: "",
-    ville: "",
-    telephone: "",
-    email: "",
-    numeroRNA: "",
-    password: "",
-    confirmPassword: "",
+    nomAssociation: "", // Nom de l'association --> representative
+    nom: "", // Nom du représentant
+    prenom: "", // Prénom du représentant
+    adresse: "", // Adresse de l'association
+    codePostal: "", // Code postal de l'association
+    ville: "", // Ville de l'association
+    telephone: "", // Numéro de téléphone
+    email: "", // Adresse email
+    numeroRNA: "", // Numéro RNA unique pour identifier l'association
+    password: "", // Mot de passe
+    confirmPassword: "", // Confirmation du mot de passe
   });
 
+  //! Ajout et suppression d'une classe CSS spécifique à la page lors du montage/démontage du composant
   useEffect(() => {
+    // Ajoute une classe CSS pour styliser la page d'inscription
     document.body.classList.add("signup-asso-page");
+
+    // Nettoyage : retire la classe CSS lors du démontage du composant
     return () => {
       document.body.classList.remove("signup-asso-page");
     };
   }, []);
 
+  //! Gestion des changements dans les champs du formulaire
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; // Récupère le nom et la valeur du champ modifié
+    // Met à jour l'état avec la nouvelle valeur tout en conservant les autres données
     setFormData({ ...formData, [name]: value });
   };
 
+  //! Validation et soumission du formulaire
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // Empêche le rechargement de la page lors de la soumission
 
+    // Vérifie si le mot de passe et la confirmation sont identiques
     if (formData.password !== formData.confirmPassword) {
       alert("Les mots de passe ne correspondent pas !");
-      return;
+      return; // Arrête l'exécution si les mots de passe ne correspondent pas
     }
 
+    // Affiche les données dans la console (simule une soumission)
     console.log("Formulaire soumis : ", formData);
   };
 
+  //! Affichage du formulaire d'inscription
   return (
     <section className="signupContainer">
-      {/* Utilisation du logo importé ici */}
-      <img
-        src={catdog} // Utilisation correcte de la variable importée
-        alt="catdog"
-        className="image" // Classe pour styliser l'image
-      />
-      <h2>Inscription Association</h2>
+      {/* Titre de la page */}
+      <h1>Inscription Association</h1>
+
+      {/* Début du formulaire */}
       <form onSubmit={handleSubmit} className="signupForm">
         <div className="leftColumn">
+          {/* Groupe de champs pour la colonne gauche */}
           <div className="inputGroup">
             <label htmlFor="nomAssociation">Nom de l'association</label>
             <input
@@ -60,7 +70,7 @@ const SignupAssociation: React.FC = () => {
               placeholder="Entrez le nom de l'association"
               value={formData.nomAssociation}
               onChange={handleChange}
-              required
+              required // Champ obligatoire
             />
           </div>
           <div className="inputGroup">
@@ -76,13 +86,13 @@ const SignupAssociation: React.FC = () => {
             />
           </div>
           <div className="inputGroup">
-            <label htmlFor="nom">Prénom du représentant</label>
+            <label htmlFor="prenom">Prénom du représentant</label>
             <input
               type="text"
-              id="nom"
-              name="nom"
-              placeholder="Entrez votre nom"
-              value={formData.nom}
+              id="prenom"
+              name="prenom"
+              placeholder="Entrez votre prénom"
+              value={formData.prenom}
               onChange={handleChange}
               required
             />
@@ -126,6 +136,7 @@ const SignupAssociation: React.FC = () => {
         </div>
 
         <div className="rightColumn">
+          {/* Groupe de champs pour la colonne droite */}
           <div className="inputGroup">
             <label htmlFor="telephone">Téléphone</label>
             <input
@@ -187,6 +198,8 @@ const SignupAssociation: React.FC = () => {
             />
           </div>
         </div>
+
+        {/* Bouton de soumission */}
         <button type="submit" className="signupButton">
           Je valide mon inscription
         </button>

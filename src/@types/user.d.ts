@@ -9,7 +9,7 @@ export interface IUser {
   role?: string; // Rôle de l'utilisateur (optionnel)
 }
 
-// Définir le type AuthContext
+//! Définir le type AuthContext
 export interface IAuthContext {
   user: IUser | null;
   login: (token: string, userData: IUser) => void;
@@ -17,4 +17,11 @@ export interface IAuthContext {
   token: string | null;
   // Définir les enfants comme ReactNode, ce qui permet d'avoir n'importe quel contenu enfant
   children: ReactNode;
+}
+
+//! Definition du type pour le composant ModalLogin
+export interface IModalLogin {
+  show: boolean;
+  onClose: () => void;
+  login: (token: string, userData: User) => void;
 }

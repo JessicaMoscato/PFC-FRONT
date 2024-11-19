@@ -26,13 +26,13 @@ export interface IFamily {
   created_at?: Date;
   updated_at?: Date;
 
-  // Liste des animaux associés à la famille
+  //! Liste des animaux associés à la famille
   animalsFamily?: IAnimal[];
 
-  // Relation avec un utilisateur
+  //! Relation avec un utilisateur
   user?: IUser;
 
-  // Fichier de profil optionnel
+  //! Fichier de profil optionnel
   profile_file?: File | null;
 }
 

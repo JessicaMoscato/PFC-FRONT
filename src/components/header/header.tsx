@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom"; // Utilisation de NavLink au lieu de Link
 import "./header.scss";
 import logo from "../../assets/images/logosimple.png";
 import ModalLogin from "../modalLogin/modalLogin";
@@ -8,15 +8,13 @@ import AuthContext from "../../contexts/authContext";
 
 const Header: React.FC = () => {
   const { user, token, login, logout } = useContext(AuthContext) || {};
+  const [isModalOpen, setIsModalOpen] = React.useState(false); // État local pour gérer l'affichage de la modal de connexion/inscription
 
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-
+  // Gestion de l'état de la modal
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // On vérifie si `login` est une fonction. Si non, on lui affecte une fonction vide.
   const safeLogin = login ? login : () => {};
-
   const isAuthenticated = !!user && !!token;
 
   return (
@@ -46,26 +44,67 @@ const Header: React.FC = () => {
       <div className="header-nav">
         <ul className="nav-list">
           <li className="nav-item">
-            <i className="fa-solid fa-house"></i>
-            <Link className="nav-link" to="/">
+
+            <NavLink
+              className={(navData) =>
+                navData.isActive ? "nav-link active-link" : "nav-link"
+              }
+              to="/"
+            >
               Accueil
-            </Link>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <i className="fa-solid fa-paw"></i>
-            <Link className="nav-link" to="/animals">
+  
+            <NavLink
+              className={(navData) =>
+                navData.isActive ? "nav-link active-link" : "nav-link"
+              }
+              to="/animaux"
+            >
               Animaux
-            </Link>
+            </NavLink>
           </li>
+
+          {isAuthenticated && user?.role === "family" && (
+            <li className="nav-item">
+              <NavLink
+                className={(navData) =>
+                  navData.isActive ? "nav-link active-link" : "nav-link"
+                }
+                to="/espace-famille"
+              >
+                Mon espace famille
+              </NavLink>
+            </li>
+          )}
+
+          {isAuthenticated && user?.role === "association" && (
+            <li className="nav-item">
+              <NavLink
+                className={(navData) =>
+                  navData.isActive ? "nav-link active-link" : "nav-link"
+                }
+                to="/espace-association"
+              >
+                Mon espace association
+              </NavLink>
+            </li>
+          )}
+
           <li className="nav-item">
-            <Link className="nav-link" to="/contact">
+            <NavLink
+              className={(navData) =>
+                navData.isActive ? "nav-link active-link" : "nav-link"
+              }
+              to="/contact"
+            >
               Contact
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>
 
-      {/* On passe la fonction `safeLogin` pour s'assurer que la prop `login` ne soit jamais undefined */}
       <ModalLogin show={isModalOpen} onClose={closeModal} login={safeLogin} />
     </header>
   );
