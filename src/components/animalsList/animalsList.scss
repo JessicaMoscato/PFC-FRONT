@@ -1,25 +1,16 @@
 :root {
-  --blue-light: #0C1F3C; /*  fond des cartes */
-  --bghovercard :#3785F2; /*fond des cartes au survol*/
-  --bgfilter: #0C1F3C; /*fond du filtre*/
-  --blue-dark: #0C1F3C; /* pour les éléments de survol ou les bordures */
+  --blue-light: #04051B; /*  fond des cartes */
+  --bghovercard :#E17664; /*fond des cartes au survol*/
+  --bgfilter: #04051B; /*fond du filtre*/
+  --blue-dark: #E17664; /* pour les éléments de survol ou les bordures */
   --white: #ffffff; /* pour les textes ou les fonds d'éléments */
   --gray: #888a8b; /* pour les textes secondaires comme les options par défaut */
-  --blue-hover: #0C1F3C; /* pour les éléments au survol, comme les boutons */
-  --background-color: #1D3A5B; /* Couleur de fond principale de la page */
+  --blue-hover: #E17664; /* pour les éléments au survol, comme les boutons */
+  --background-color: #FFFBEA; /* Couleur de fond principale de la page */
   --textCard : rgb(241, 234, 234);
 }
 
-/*! Styles par défaut : Mobile-First */
 
-/* Corps de la page */
-body.animals-page {
-  background-color: var(--background-color);
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 /* Conteneur principal (mobile) */
 main.Animals {
@@ -84,7 +75,7 @@ main.Animals {
 /* Bouton d'application des filtres */
 #apply-filters-btn {
   padding: 10px 15px;
-  background-color: var(--blue-dark);
+  background-color: var(--blue-hover);
   color: var(--white);
   cursor: pointer;
   border: 1px solid var(--white);

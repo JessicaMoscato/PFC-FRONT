@@ -25,84 +25,72 @@ const Header: React.FC = () => {
           <h1>Pet Foster Connect</h1>
         </div>
 
-        {isAuthenticated ? (
-          <div>
-            <span>
-              {user?.firstname} {user?.lastname}
-            </span>
-            <button className="auth-button" onClick={logout}>
-              Se déconnecter
-            </button>
-          </div>
-        ) : (
-          <button className="auth-button" onClick={openModal}>
-            Connexion / Inscription
-          </button>
-        )}
-      </div>
-
-      <div className="header-nav">
-        <ul className="nav-list">
-          <li className="nav-item">
-
-            <NavLink
-              className={(navData) =>
-                navData.isActive ? "nav-link active-link" : "nav-link"
-              }
-              to="/"
-            >
-              Accueil
-            </NavLink>
-          </li>
-          <li className="nav-item">
-  
-            <NavLink
-              className={(navData) =>
-                navData.isActive ? "nav-link active-link" : "nav-link"
-              }
-              to="/animaux"
-            >
-              Animaux
-            </NavLink>
-          </li>
+        <div className="header-links">
+          <NavLink
+            className={(navData) =>
+              navData.isActive ? "nav-link active-link" : "nav-link"
+            }
+            to="/"
+          >
+            Accueil
+          </NavLink>
+          <NavLink
+            className={(navData) =>
+              navData.isActive ? "nav-link active-link" : "nav-link"
+            }
+            to="/animaux"
+          >
+            Animaux
+          </NavLink>
 
           {isAuthenticated && user?.role === "family" && (
-            <li className="nav-item">
-              <NavLink
-                className={(navData) =>
-                  navData.isActive ? "nav-link active-link" : "nav-link"
-                }
-                to="/espace-famille"
-              >
-                Mon espace famille
-              </NavLink>
-            </li>
+            <NavLink
+              className={(navData) =>
+                navData.isActive ? "nav-link active-link" : "nav-link"
+              }
+              to="/espace-famille"
+            >
+              Mon espace famille
+            </NavLink>
           )}
 
           {isAuthenticated && user?.role === "association" && (
-            <li className="nav-item">
-              <NavLink
-                className={(navData) =>
-                  navData.isActive ? "nav-link active-link" : "nav-link"
-                }
-                to="/espace-association"
-              >
-                Mon espace association
-              </NavLink>
-            </li>
-          )}
-
-          <li className="nav-item">
             <NavLink
               className={(navData) =>
                 navData.isActive ? "nav-link active-link" : "nav-link"
               }
-              to="/contact"
+              to="/espace-association"
             >
-              Contact
+              Mon espace association
             </NavLink>
-          </li>
-        </ul>
+          )}
+
+          <NavLink
+            className={(navData) =>
+              navData.isActive ? "nav-link active-link" : "nav-link"
+            }
+            to="/contact"
+          >
+            Contact
+          </NavLink>
+        </div>
+
+        <div className="auth-container">
+          {isAuthenticated ? (
+            <div className="user-info">
+              <span>
+                {user?.firstname} {user?.lastname}
+              </span>
+              <button className="auth-button" onClick={logout}>
+                Se déconnecter
+              </button>
+            </div>
+          ) : (
+            <button className="auth-button" onClick={openModal}>
+              Connexion / Inscription
+            </button>
+          )}
+        </div>
       </div>
 
       <ModalLogin show={isModalOpen} onClose={closeModal} login={safeLogin} />

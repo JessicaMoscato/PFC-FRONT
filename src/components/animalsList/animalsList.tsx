@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { GetAllAnimals } from "../../api/animal.api";
 import type { IAnimal } from "../../@types/animal";
 import "./animalsList.scss";
+import "../../styles/commun.scss";
 
 const Animals: React.FC = () => {
   // Déclare les états pour gérer les animaux, les filtres et les erreurs

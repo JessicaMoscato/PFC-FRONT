@@ -1,13 +1,14 @@
 .home-container {
   width: 100vw;
   height: 100vh;  /* Prend toute la hauteur de la fenêtre */
-  background-image: url('../../assets/images/img-homepage.webp');  /* Chemin de ton image */
+  background-image: url('../../assets/images/presentation.webp');  /* Chemin de ton image */
   background-size: auto 100%;  /* L'image occupe toute la hauteur sans se déformer */
   background-repeat: no-repeat;
   background-position: left center;  /* L'image est centrée verticalement à gauche */
   display: flex;
   flex-direction: column;  /* Ajoute cette ligne pour permettre au titre d'être en haut et le contenu en bas */
   justify-content: flex-start;  /* Assure-toi que le titre reste en haut */
+  background-color: #141414;
 }
 
 .home-title {

@@ -1,42 +1,98 @@
 /* Variables */
-$header-bg-color: #0C1F3C;
+$header-bg-color: #04051B;
 $header-text-color: white;
-$nav-bg-color: #3785F2;
-$button-bg-color: #007bff;
-$button-hover-color: #0056b3;
-$link-hover-color: #0C1F3C;
+$button-bg-color: #D66464;
+$button-hover-color: #E17664;
+$link-actif:#E17664;
+
 
 /* Exemple de style pour le lien actif */
 .nav-link.active-link {
   color: #0C1F3C; /* Couleur de votre choix */
-  
 }
 
 .header {
   background-color: $header-bg-color;
   color: $header-text-color;
-   margin: 0;
-  padding: 0;
-  width: 100%;
+}
 
-  &-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px; // Garder cette hauteur
-    padding: 0 15px;
+.header-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  padding: 0 15px;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+
+  .logo-img {
+    height: 60px;
+    width: auto;
+  }
+
+  h1 {
+    width: 280px;
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 0;
+    line-height: 1;
   }
 }
 
-.profile-icon {
-  padding-right: 50px;
-  font-size: 1.5rem;
-  color: $header-text-color;
+/* Centrer les liens dans le header */
+.header-links {
+  display: flex;
+  justify-content: center; /* Centrer horizontalement les liens */
+  width: 100%; /* S'assurer que la section occupe toute la largeur */
+  margin-left: auto; /* Garder l'alignement à gauche pour la section logo et la section de déconnexion */
+  margin-right: auto; /* Garder l'alignement à droite pour le bouton d'authentification */
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin-left: 30px; /* Espacement entre les items */
+}
+
+.nav-link {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #ffffff; /* Couleur du texte */
+  padding: 10px 20px; /* Hauteur et largeur pour que les liens aient la même taille que le bouton */
+  border-radius: 5px; /* Bordures arrondies */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transition pour fond et effet de transformation */
+  display: inline-block;
+  
   cursor: pointer;
-  margin-left: 20px;
+}
+
+/* Style pour les liens actifs */
+.nav-link.active-link {
+  background-color: $link-actif; /* Couleur de fond du lien actif */
+  color: white; /* Texte blanc */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre autour du bouton */
+  transform: translateY(-2px); /* Effet de décalage pour simuler un clic */
+}
+
+/* Container de l'authentification aligné à droite */
+.auth-container {
+  margin-left: auto; /* Pousse l'élément vers la droite */
+  display: flex;
+  align-items: center;
 }
 
 .auth-button {
+  width: 200px;
   background-color: $button-bg-color;
   color: #fff;
   text-decoration: none;
@@ -52,6 +108,16 @@ $link-hover-color: #0C1F3C;
   }
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.user-info span {
+  margin-right: 10px;
+}
+
 main {
   margin-top: 30px;
 }
@@ -61,71 +127,3 @@ main {
   font-weight: bold;
   margin: 0;
 }
-
-.logo {
-  display: flex;
-  align-items: center;
-  flex-grow: 1; // Permet de pousser le contenu vers le centre
-
-  .logo-img {
-    height: 60px;
-    width: auto;
-    margin-right: 20px;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-    margin: 0; // Enlever la marge par défaut
-    line-height: 1; // Pour que l'alignement vertical soit plus précis
-  }
-}
-
-
-
-.header-nav {
-  background-color: $nav-bg-color;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  gap: 40px;
-}
-
-.nav-list {
-  display: flex;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-item {
-  margin-left: 120px;
-
-  &:first-child {
-    margin-left: 0;
-  }
-}
-
-/* Style de base pour le lien */
-.nav-link {
-  font-size: 1.2rem;
-  text-decoration: none;
-  color: #000; /* Couleur du texte */
-  padding: 4px 10px; /* Espace autour du texte, pour un effet de bouton */
-  border-radius: 5px; /* Bordures arrondies */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Transition pour fond et effet de transformation */
-  display: inline-block; /* Pour appliquer correctement le padding */
-  cursor: pointer; /* Montre un curseur en forme de main */
-}
-
-/* Style spécifique pour le lien actif (comme un bouton) */
-.nav-link.active-link {
-  background-color: #0C1F3C; /* Couleur de fond du bouton */
-  color: white; /* Texte blanc */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre autour du bouton */
-  transform: translateY(-2px); /* Effet de décalage pour simuler un clic */
-}
-
-
-
-
