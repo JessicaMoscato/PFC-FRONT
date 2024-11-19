@@ -2,10 +2,10 @@
 //! Il offre deux modes : connexion via email/mot de passe ou choix du type d'inscription (association ou famille d'accueil).
 //! La gestion des états locaux, des erreurs, et la navigation sont intégrées.
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SigninUser } from "../../api/signin.api"; // Import de la fonction pour l'authentification
-import { IModalLogin } from "../../@types/user";
+import type { IModalLogin } from "../../@types/user";
 import "./modalLogin.scss";
 
 const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
@@ -52,7 +52,7 @@ const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
       } else {
         setError("Nom d'utilisateur ou mot de passe incorrect");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
       setError("Une erreur est survenue. Veuillez réessayer.");
     }
@@ -76,6 +76,12 @@ const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
           onClick={() => {
             onClose();
             resetForm();
+          }}
+          onKeyUp={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              onClose();
+              resetForm();
+            }
           }}
         >
           &times;
@@ -102,7 +108,7 @@ const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
             <div className="switch-form">
               <p>
                 Pas encore de compte ?{" "}
-                <button onClick={() => setIsChoosingType(true)}>
+                <button type="button" onClick={() => setIsChoosingType(true)}>
                   S'inscrire
                 </button>
               </p>
@@ -132,18 +138,24 @@ const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
                 Famille d'accueil
               </label>
             </div>
-            <button
-              className="register-option-btn"
-              onClick={handleRegisterRedirect}
-              disabled={!selectedOption}
-            >
-              S'inscrire
-            </button>
+        <button
+          type="button"
+          className="register-option-btn"
+          onClick={handleRegisterRedirect}
+          disabled={!selectedOption}
+        >
+          S'inscrire
+        </button>
             <div className="switch-form">
               <p>
                 Vous avez déjà un compte ?{" "}
-                <button onClick={() => setIsChoosingType(false)}>
-                  Se connecter
+                <button
+                  type="button"
+                  className="register-option-btn"
+                  onClick={handleRegisterRedirect}
+                  disabled={!selectedOption}
+                >
+                  S'inscrire
                 </button>
               </p>
             </div>

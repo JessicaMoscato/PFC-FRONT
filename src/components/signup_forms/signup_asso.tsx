@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import "./signup.scss";
+
 
 //! Composant SignupAssociation
 const SignupAssociation: React.FC = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; // Importation des hooks React nécessaires
+import { useState, useEffect } from "react"; // Importation des hooks React nécessaires
 import "./signup.scss"; // Importation du fichier SCSS pour le style du composant
 
 //! Définition du composant Signup_fa
@@ -16,6 +16,7 @@ const Signup_fa: React.FC = () => {
     confirmPassword: "",
   });
 
+  
   // Ajouter une classe au body quand la page est rendue
   useEffect(() => {
     // Ajouter la classe 'signup-fa-page' au body lors du montage du composant
