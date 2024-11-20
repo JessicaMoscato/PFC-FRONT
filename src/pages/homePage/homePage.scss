@@ -3,6 +3,7 @@ $background-dark: #141414;
 $text-color: white;
 $semi-transparent-dark: rgba(20, 40, 64, 0); /* Plus de transparence */
 
+
 /* Mobile-first styles */
 .home-container {
   width: 100vw;
@@ -14,7 +15,7 @@ $semi-transparent-dark: rgba(20, 40, 64, 0); /* Plus de transparence */
   display: flex;
   flex-direction: column;
   justify-content: flex-start; /* Le titre reste en haut */
-  background-color: $background-dark;
+
 }
 
 .home-title {
@@ -54,13 +55,13 @@ $semi-transparent-dark: rgba(20, 40, 64, 0); /* Plus de transparence */
   justify-content: center;
   align-items: center;
   color: $text-color;
-  background-color: $semi-transparent-dark;
+
   border-radius: 25px; /* Arrondi plus doux pour un effet plus moderne */
   padding: 20px;
   width: 50%; /* Le texte occupe la moitié droite de l'écran */
   height: 100%;
   margin-left: 2rem;
-  box-shadow: 0 4px 15px #465565; /* Ombre douce pour ajouter de la profondeur */
+
   backdrop-filter: blur(10px); /* Effet flou derrière le texte */
 }
 
@@ -97,7 +98,7 @@ $semi-transparent-dark: rgba(20, 40, 64, 0); /* Plus de transparence */
   .home-text-right {
     width: 50%; /* Le texte occupe 50% de l'écran */
     margin-left: 2rem;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Ombre plus marquée pour desktop */
+
   }
 
   .home-content1,
@@ -112,10 +113,10 @@ $semi-transparent-dark: rgba(20, 40, 64, 0); /* Plus de transparence */
     padding: 0;
     margin-left: 65rem; /* Plus grande marge pour l'espacement sur desktop */
     width: 40%; /* Réduit encore la largeur sur des écrans plus larges */
-    box-shadow: 0 10px 30px #465565; /* Ombre plus marquée pour plus de profondeur */
+
     height: 350px;
-      background-color: $semi-transparent-dark;
-  border-radius: 25px; /* Arrondi plus doux pour un effet plus moderne */
+
+ 
   }
 
   .home-content{
@@ -140,9 +141,9 @@ $semi-transparent-dark: rgba(20, 40, 64, 0); /* Plus de transparence */
   text-align: center; /* Centrer le texte horizontalement */
   margin-top: 1rem; /* Un peu d'espace en haut */
   font-size: 2.5rem; /* Taille un peu plus grande pour mobile */
-  color: $text-color;
+
   font-weight: bold; /* Ajout du gras pour plus d'impact */
-  background: #04051b3a; /* Fond semi-transparent autour du texte */
+  
   padding: 10px 20px; /* Ajoute du padding autour du texte pour un espacement agréable */
   border-radius: 8px; /* Arrondir légèrement les coins */
 }

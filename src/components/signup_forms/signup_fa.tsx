@@ -1,10 +1,11 @@
+// SignupFa.tsx
+
 import { useState, ChangeEvent, FormEvent } from "react";
 import "./signup.scss";
-import { CreateUser } from "../../api/user.api"; // Fonction pour créer un utilisateur
-import type { IUserRegistrationFamily } from "../../@types/signupForm"; // Utilisation du type correct
+import { CreateUser } from "../../api/user.api";
+import type { IUserRegistrationFamily } from "../../@types/signupForm";
 
 const SignupFa = () => {
-  // Initialisation des données du formulaire avec le type IUserRegistrationFamily
   const [formData, setFormData] = useState<IUserRegistrationFamily>({
     firstname: "",
     lastname: "",
@@ -21,74 +22,74 @@ const SignupFa = () => {
 
   const [successMessage, setSuccessMessage] = useState<string | boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [phoneError, setPhoneError] = useState<string>("");
 
-  // Gestion des changements dans les champs du formulaire
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    if (["address", "postal_code", "city", "phone"].includes(name)) {
-      setFormData((prevData) => ({
-        ...prevData,
-        family: {
-          ...prevData.family,
-          [name]: value,
-        },
-      }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
+   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+     const { name, value } = e.target;
+     if (["address", "postal_code", "city", "phone"].includes(name)) {
+       setFormData((prevData) => ({
+         ...prevData,
+         family: {
+           ...prevData.family,
+           [name]: value,
+         },
+       }));
+
+       // Validation du numéro de téléphone
+       if (name === "phone") {
+         if (!/^\d{10}$/.test(value)) {
+           setPhoneError("Le numéro de téléphone doit comporter 10 chiffres.");
+         } else {
+           setPhoneError("");
+         }
+       }
+     } else {
+       setFormData((prevData) => ({
+         ...prevData,
+         [name]: value,
+       }));
+     }
+   };
+
+  
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+      if (!/^\d{10}$/.test(formData.family.phone)) {
+        setPhoneError("Le numéro de téléphone doit comporter 10 chiffres.");
+        return;
+      }
+
+    if (formData.password !== formData.passwordConfirmation) {
+      setErrorMessage("Les mots de passe ne correspondent pas.");
+      return;
+    }
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(formData.email)) {
+      setErrorMessage("L'email est invalide.");
+      return;
+    }
+    try {
+      const { passwordConfirmation, ...dataToSend } = formData;
+      await CreateUser(dataToSend);
+      setSuccessMessage(
+        "Inscription réussie ! Vous pouvez maintenant vous connecter."
+      );
+      setErrorMessage("");
+    } catch (error: any) {
+      if (error?.response?.data?.message) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage("Une erreur s'est produite lors de l'inscription.");
+      }
     }
   };
-
-  // Gestion de la soumission du formulaire
- const handleSubmit = async (e: FormEvent) => {
-   e.preventDefault();
-
-   // Validation des mots de passe : vérifie qu'ils correspondent avant l'envoi
-   if (formData.password !== formData.passwordConfirmation) {
-     setErrorMessage("Les mots de passe ne correspondent pas.");
-     return;
-   }
-
-   // Validation de l'email (format basique)
-   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-   if (!emailPattern.test(formData.email)) {
-     setErrorMessage("L'email est invalide.");
-     return;
-   }
-
-   try {
-     // Supprime passwordConfirmation avant l'envoi au backend
-     const { passwordConfirmation, ...dataToSend } = formData;
-
-     // Envoie les données sans passwordConfirmation
-     await CreateUser(dataToSend);
-
-     setSuccessMessage(
-       "Inscription réussie ! Vous pouvez maintenant vous connecter."
-     );
-     setErrorMessage(""); // Réinitialisation des messages d'erreur
-   } catch (error: any) {
-     if (error?.response?.data?.message) {
-       setErrorMessage(error.response.data.message);
-     } else {
-       setErrorMessage("Une erreur s'est produite lors de l'inscription.");
-     }
-   }
- };
-
-
-
-
-
-
 
   return (
     <section className="signup_fa">
       <div className="signup_faHeader">
-        <h3>Inscription en tant que</h3>
-        <h4>Famille d'accueil</h4>
+        <h1>Inscription famille d'accueil</h1>
       </div>
       <div className="subscribeFormContainer">
         <form
@@ -96,7 +97,6 @@ const SignupFa = () => {
           className="formConnexionPage"
           id="subscribeForm"
         >
-          {/* Section Nom et Prénom */}
           <div className="nameSectionFa">
             <div className="fieldContainer">
               <label className="labelConnexionPage" htmlFor="lastname">
@@ -128,7 +128,6 @@ const SignupFa = () => {
             </div>
           </div>
 
-          {/* Section Contact */}
           <div className="contactSectionFa">
             <div className="fieldContainer">
               <label className="labelConnexionPage" htmlFor="email">
@@ -146,13 +145,12 @@ const SignupFa = () => {
             </div>
           </div>
 
-          {/* Section Adresse */}
-          <div className="mainAdress">
+          <div className="mainAddress">
             <label className="labelConnexionPage" htmlFor="address">
               Adresse
             </label>
             <input
-              className="inputConnexionPage"
+              className="inputConnexionPage inputLarge"
               type="text"
               name="address"
               id="address"
@@ -193,7 +191,6 @@ const SignupFa = () => {
             </div>
           </div>
 
-          {/* Section Téléphone */}
           <div className="contactSectionFa">
             <div className="fieldContainer">
               <label className="labelConnexionPage" htmlFor="phone">
@@ -208,12 +205,12 @@ const SignupFa = () => {
                 onChange={handleChange}
                 required
               />
+              {phoneError && <p className="errorMessage">{phoneError}</p>}
             </div>
           </div>
 
-          {/* Section Mot de Passe */}
-          <div className="passwordSection passwordAssociation">
-            <div>
+          <div className="passwordSection">
+            <div className="fieldContainer">
               <label className="labelConnexionPage" htmlFor="password">
                 Mot de passe
               </label>
@@ -227,7 +224,7 @@ const SignupFa = () => {
                 required
               />
             </div>
-            <div>
+            <div className="fieldContainer">
               <label
                 className="labelConnexionPage"
                 htmlFor="passwordConfirmation"
@@ -246,11 +243,9 @@ const SignupFa = () => {
             </div>
           </div>
 
-          {/* Messages d'erreur ou de succès */}
           {errorMessage && <p className="errorMessage">{errorMessage}</p>}
           {successMessage && <p className="successMessage">{successMessage}</p>}
 
-          {/* Bouton de soumission */}
           <button type="submit" className="buttonConnexionPage">
             Créer un compte
           </button>

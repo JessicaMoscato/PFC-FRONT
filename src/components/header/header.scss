@@ -1,9 +1,9 @@
 /* Variables */
-$header-bg-color: #19252E;
+$header-bg-color: #262e33;
 $header-text-color: white;
-$button-bg-color: #27586E;
-$button-hover-color: #3b8db3;
-$link-actif:#27586E;
+$button-bg-color: #4e8696;
+$button-hover-color: #88ADB7;
+$link-actif:#88ADB7;
 
 
 /* Exemple de style pour le lien actif */
@@ -79,7 +79,7 @@ $link-actif:#27586E;
 /* Style pour les liens actifs */
 .nav-link.active-link {
   background-color: $link-actif; /* Couleur de fond du lien actif */
-  color: white; /* Texte blanc */
+  color: rgb(3, 3, 3); /* Texte blanc */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre autour du bouton */
   transform: translateY(-2px); /* Effet de décalage pour simuler un clic */
 }
