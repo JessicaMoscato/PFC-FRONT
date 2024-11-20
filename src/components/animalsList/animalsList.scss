@@ -1,12 +1,12 @@
 :root {
-  --blue-light: #04051B; /*  fond des cartes */
-  --bghovercard :#E17664; /*fond des cartes au survol*/
+  --blue-light: #101026; /*  fond des cartes */
+  --bghovercard :#D66464; /*fond des cartes au survol*/
   --bgfilter: #04051B; /*fond du filtre*/
   --blue-dark: #E17664; /* pour les éléments de survol ou les bordures */
   --white: #ffffff; /* pour les textes ou les fonds d'éléments */
   --gray: #888a8b; /* pour les textes secondaires comme les options par défaut */
   --blue-hover: #E17664; /* pour les éléments au survol, comme les boutons */
-  --background-color: #FFFBEA; /* Couleur de fond principale de la page */
+  --background-color: #484866; /* Couleur de fond principale de la page */
   --textCard : rgb(241, 234, 234);
 }
 
@@ -14,11 +14,15 @@
 
 /* Conteneur principal (mobile) */
 main.Animals {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: var(--background-color);
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  
   padding: 10px;
+  
 }
 
 /* Conteneur des filtres */
@@ -181,6 +185,7 @@ main.Animals {
   main.Animals {
     flex-direction: row;
     align-items: flex-start;
+    margin: 0;
   }
 
   .filters {

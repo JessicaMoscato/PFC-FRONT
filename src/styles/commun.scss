@@ -4,6 +4,7 @@ body, .logo, .nav-link {
   font-size: 1rem;
   font-weight: 500;
   font-style: normal;
+  margin-top: 0;
 }
 
 .header {
@@ -20,3 +21,7 @@ body, .logo, .nav-link {
   flex-direction: column;
   height: 100vh;
 }
+
+main {
+  margin-top: 0 !important 
+};
