@@ -1,29 +1,65 @@
-//! Type pour le modèle "Association"
-export interface IAssociation {
-  id: number; // ID unique de l'association
-  rna_number: string; // Numéro RNA (obligatoire et unique)
-  representative: string; // Nom du représentant (obligatoire)
-  address: string; // Adresse (obligatoire)
-  postal_code: string; // Code postal (obligatoire)
-  city: string; // Ville (obligatoire)
-  phone: string; // Numéro de téléphone (obligatoire)
-  description?: string; // Description de l'association (optionnel)
-  status: string; // Statut de l'association (obligatoire, par défaut "en attente")
-  profile_photo?: string; // Photo de profil de l'association (optionnel)
-  created_at: Date; // Date de création (obligatoire, type Date pour une manipulation correcte)
-  updated_at: Date; // Date de mise à jour (obligatoire, type Date pour une manipulation correcte)
-  id_user?: number; // ID de l'utilisateur associé à l'association
-  user?: IUser; // Relation avec un utilisateur
-  animals?: IAnimal[]; // Liste des animaux associés à l'association
+interface IAnimal {
+  id: number;
+  name: string;
+  species: string;
+  breed: string;
+  gender: string;
+  age: number;
+  size: string;
+  description: string;
+  profile_photo: string;
+  photo1: string;
+  photo2: string;
+  photo3: string;
+  id_association: number;
+  id_family: number | null;
+  created_at: string;
+  updated_at: string;
 }
 
-//! Type pour le formulaire d'ajout d'une association
+interface IUser {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  role: "association";
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IAssociation {
+  id: number;
+  lastname: string;
+  firstname: string;
+  representative: string;
+  rna_number: string;
+  address: string;
+  postal_code: string;
+  city: string;
+  phone: string | null;
+  description: string;
+  status: string;
+  profile_photo: string | undefined;
+  profile_file: File | undefined;
+  created_at: string;
+  updated_at: string;
+  id_user: number;
+  user: IUser;
+  animals: IAnimal[];
+}
+
 export interface IAssociationForm {
-  rna_number: string; // Numéro RNA (obligatoire)
-  representative: string; // Nom du représentant (obligatoire)
-  address: string; // Adresse (obligatoire)
-  postal_code: string; // Code postal (obligatoire)
-  city: string; // Ville (obligatoire)
-  phone: string; // Numéro de téléphone (obligatoire)
-  description?: string; // Description de l'association (optionnel)
+  profile_file: File | null;
+  representative: string | null | undefined;
+  rna_number: string | null | undefined;
+  lastname: string | null | undefined;
+  firstname: string | null | undefined;
+  email: string | null | undefined;
+  phone: string | null | undefined;
+  address: string | null | undefined;
+  postal_code: string | null | undefined;
+  city: string | null | undefined;
+  description: string | null | undefined;
+  user?: Partial<IUser>;
 }

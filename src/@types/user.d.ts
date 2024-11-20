@@ -1,27 +1,45 @@
 export interface IUser {
-  id: number; // ID unique de l'utilisateur
+  id: number;
+  role: string;
+  email: string;
   id_family: number | null;
   id_association: number | null;
-  firstname: string; // Prénom de l'utilisateur (obligatoire)
-  lastname: string; // Nom de famille de l'utilisateur (obligatoire)
-  email: string; // Email de l'utilisateur (obligatoire)
-  password: string; // Mot de passe de l'utilisateur (obligatoire, mais peut être omis lors de la récupération)
-  role?: string; // Rôle de l'utilisateur (optionnel)
+  family: {
+    address: string;
+    city: string;
+    description: string;
+    garden: false;
+    id: number;
+    id_user: number;
+    number_of_animals: number | null;
+    number_of_children: number | null;
+    phone: string;
+    postal_code: string;
+    profile_photo: string;
+  } | null;
+  association: {
+    postal_code: number | null;
+ 
 }
-
-//! Définir le type AuthContext
-export interface IAuthContext {
-  user: IUser | null;
-  login: (token: string, userData: IUser) => void;
-  logout: () => void;
+}
+export interface IUserFamily {
   token: string | null;
-  // Définir les enfants comme ReactNode, ce qui permet d'avoir n'importe quel contenu enfant
-  children: ReactNode;
+  user: {
+    id: number;
+    role: string;
+    email: string;
+    id_family: number;
+    id_association : null;
+  }
 }
 
-//! Definition du type pour le composant ModalLogin
-export interface IModalLogin {
-  show: boolean;
-  onClose: () => void;
-  login: (token: string, userData: User) => void;
+export interface IUserAssociation {
+  token: string | null;
+  user: {
+    id: number;
+    role: string;
+    email: string;
+    id_family: null;
+    id_association : number;
+  }
 }

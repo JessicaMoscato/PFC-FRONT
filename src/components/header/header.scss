@@ -1,9 +1,9 @@
 /* Variables */
-$header-bg-color: #04051B;
+$header-bg-color: #19252E;
 $header-text-color: white;
-$button-bg-color: #D66464;
-$button-hover-color: #E17664;
-$link-actif:#E17664;
+$button-bg-color: #27586E;
+$button-hover-color: #3b8db3;
+$link-actif:#27586E;
 
 
 /* Exemple de style pour le lien actif */
@@ -68,7 +68,7 @@ $link-actif:#E17664;
   font-size: 1.2rem;
   text-decoration: none;
   color: #ffffff; /* Couleur du texte */
-  padding: 10px 20px; /* Hauteur et largeur pour que les liens aient la même taille que le bouton */
+  padding: 8px 16px; /* Hauteur et largeur pour que les liens aient la même taille que le bouton */
   border-radius: 5px; /* Bordures arrondies */
   transition: background-color 0.3s ease, transform 0.2s ease; /* Transition pour fond et effet de transformation */
   display: inline-block;
@@ -89,6 +89,7 @@ $link-actif:#E17664;
   margin-left: auto; /* Pousse l'élément vers la droite */
   display: flex;
   align-items: center;
+  
 }
 
 .auth-button {

@@ -7,7 +7,7 @@ $semi-transparent-dark: rgba(20, 40, 64, 0); /* Plus de transparence */
 .home-container {
   width: 100vw;
   height: 100vh; /* Prend toute la hauteur de la fenêtre */
-  background-image: url('../../assets/images/presentation.webp');
+  background-image: url('../../assets/images/img-homepage.webp');
   background-size: cover; /* L'image occupe toute la largeur et hauteur sans se déformer */
   background-repeat: no-repeat;
   background-position: center; /* L'image est centrée */
@@ -60,7 +60,7 @@ $semi-transparent-dark: rgba(20, 40, 64, 0); /* Plus de transparence */
   width: 50%; /* Le texte occupe la moitié droite de l'écran */
   height: 100%;
   margin-left: 2rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Ombre douce pour ajouter de la profondeur */
+  box-shadow: 0 4px 15px #465565; /* Ombre douce pour ajouter de la profondeur */
   backdrop-filter: blur(10px); /* Effet flou derrière le texte */
 }
 
@@ -112,7 +112,7 @@ $semi-transparent-dark: rgba(20, 40, 64, 0); /* Plus de transparence */
     padding: 0;
     margin-left: 65rem; /* Plus grande marge pour l'espacement sur desktop */
     width: 40%; /* Réduit encore la largeur sur des écrans plus larges */
-    box-shadow: 0 10px 30px #392A4A; /* Ombre plus marquée pour plus de profondeur */
+    box-shadow: 0 10px 30px #465565; /* Ombre plus marquée pour plus de profondeur */
     height: 350px;
       background-color: $semi-transparent-dark;
   border-radius: 25px; /* Arrondi plus doux pour un effet plus moderne */
@@ -134,13 +134,15 @@ $semi-transparent-dark: rgba(20, 40, 64, 0); /* Plus de transparence */
   }
 
   .home-title {
-  display: inline-block; /* Permet au fond de s'adapter à la largeur du texte */
+   display: inline-block; /* Permet au fond de s'adapter à la largeur du texte */
+ width: 40vw;
+ align-self: center;
   text-align: center; /* Centrer le texte horizontalement */
-  margin-top: 0rem; /* Un peu d'espace en haut */
+  margin-top: 1rem; /* Un peu d'espace en haut */
   font-size: 2.5rem; /* Taille un peu plus grande pour mobile */
   color: $text-color;
   font-weight: bold; /* Ajout du gras pour plus d'impact */
-  background: #04051b88; /* Fond semi-transparent autour du texte */
+  background: #04051b3a; /* Fond semi-transparent autour du texte */
   padding: 10px 20px; /* Ajoute du padding autour du texte pour un espacement agréable */
   border-radius: 8px; /* Arrondir légèrement les coins */
 }

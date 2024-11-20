@@ -27,16 +27,24 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Remplacer <a> par <NavLink> pour la gestion des liens actifs */}
-        <NavLink
-          to="/contact"
-          className={({ isActive }) => (isActive ? "nav-link active-link" : "nav-link")}
-        >
-          Contact
-        </NavLink>
 
         <div className="copyright">
           {/* Texte de copyright */}
           <p>&copy; 2024 Pet Foster Connect. Tous droits réservés.</p>
+        </div>
+        <div className="link">
+          <NavLink
+            to="/contact"
+            className={({ isActive }) => (isActive ? "nav-link " : "nav-link")}
+          >
+            Contact
+          </NavLink>
+          <NavLink
+            to="/a-propos"
+            className={({ isActive }) => (isActive ? "nav-link " : "nav-link")}
+          >
+            A propos
+          </NavLink>
         </div>
       </div>
     </footer>

@@ -1,9 +1,11 @@
 body.signup-asso-page{
   background: #1D3A5B; /* fond de la page asso form */
+  height: 100vh;
 }
 
 body.signup-fa-page{
   background: #1D3A5B; /* fond de la page asso form */
+  height: 100vh;
 }
 /* Définition des variables */
 :root {
@@ -28,10 +30,9 @@ h1{
   height: auto;
 }
 /* Ajouter ces styles pour la page d'inscription */
-body.signup-asso-page,
-body.signup-fa-page {
+body {
   margin: 0; /* Empêche le scroll global */
-  padding: 0; /* Enlève tout padding */
+  padding-top: 0; /* Enlève tout padding */
   height: 100vh; /* La page prend toute la hauteur */
   display: flex;
   flex-direction: column; /* Permet de placer le header en haut et le contenu en dessous */
@@ -39,6 +40,8 @@ body.signup-fa-page {
 }
 
 .signupContainer {
+  padding-top: 20px;
+  height: 80vh;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -113,4 +116,29 @@ body.signup-fa-page {
 
 .signupButton:hover {
   background-color: var(--primary-hover-color);
+}
+
+/* pour les message derreurs */
+
+.passwordCriteria {
+  list-style-type: none;
+  padding: 0;
+  margin: 0.5rem 0;
+
+  li {
+    font-size: 0.85rem;
+    margin: 0.3rem 0;
+    &.valid {
+      color: green;
+    }
+    &.invalid {
+      color: red;
+    }
+  }
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
 }

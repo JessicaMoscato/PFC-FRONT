@@ -1,6 +1,6 @@
 /* Définition des variables de couleur */
 :root {
-  --footer-bg-color: #04051B;
+  --footer-bg-color: #19252E;
   --text-color: white;
   --social-icon-color: white;
   --social-icon-hover-color: #1da1f2; /* Bleu pour Instagram */
@@ -11,7 +11,7 @@
   
   background-color: var(--footer-bg-color);
   color: var(--text-color);
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   position: relative;
   bottom: 0;
@@ -29,7 +29,8 @@
 .social-media {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 55px;
+  margin-left: 20px;
 }
 
 .social-icon {
@@ -45,4 +46,9 @@
 .copyright p {
   font-size: var(--copyright-font-size);
   margin: 0;
+}
+
+.nav-link {
+  font-size: 1rem;
+  margin-right: 20px;
 }

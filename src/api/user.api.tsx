@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { api, handleApiError } from "../api";
-import { IUser } from "../@types/user";
+import { IUserRegistration, IUser, ICreateUserResponse } from "../@types/signupForm";
 
 
 /**
@@ -35,20 +35,26 @@ export const GetUserById = async (id: string): Promise<IUser> => {
 };
 
 /**
+/**
  *! Crée un nouvel utilisateur.
- ** Cette fonction est accessible publiquement pour l'inscription.
+ * Cette fonction est accessible publiquement pour l'inscription.
  * @param userData Les données de l'utilisateur à créer.
- * @returns Une promesse qui résout avec l'objet IUser créé.
+ * @returns Une promesse qui résout avec un objet contenant l'utilisateur et le token.
  */
-export const CreateUser = async (userData: Partial<IUser>): Promise<IUser> => {
+export const CreateUser = async (userData: IUserRegistration): Promise<ICreateUserResponse> => {
   try {
-    const response: AxiosResponse<IUser> = await api.post("/user", userData);
+    // Appel de l'API pour créer un utilisateur
+    const response: AxiosResponse<ICreateUserResponse> = await api.post("/user",userData);
+
+    // Retourne les données de l'utilisateur et le token
     return response.data;
   } catch (error) {
+    // Gestion des erreurs
     handleApiError(error, "la création d'un nouvel utilisateur");
     throw error;
   }
 };
+
 
 /**
  *! Modifie un utilisateur existant.

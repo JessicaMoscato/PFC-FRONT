@@ -1,53 +1,67 @@
-//! Type pour le modèle "User"
-interface IUser {
+// Définition d'un utilisateur générique
+export interface IUser {
   id: number;
+  role: "family" | "association"; // Rôle spécifique
+  email: string;
+  firstname: string | null;
+  lastname: string | null;
+  password: string;
+  id_family: number | null;
+  id_association: number | null;
+  created_at: string;
+  updated_at: string;
+  family: IFamilyDetails | null; // Optionnel selon le rôle
+  association: IAssociationDetails | null; // Optionnel pour association
+}
+
+export interface IFamilySignupData {
   firstname: string;
   lastname: string;
   email: string;
   password: string;
-  role: "family" | "association";
-  created_at: Date;
-  updated_at: Date;
+  passwordConfirmation: string;
+  family: {
+    address: string;
+    postal_code: string;
+    city: string;
+    phone: string;
+  };
 }
 
-//! Type pour le modèle "Family"
-export interface IFamily {
+
+// Exemple de type IFamilyData
+export interface IFamilyData {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  family: {
+    address: string;
+    postal_code: string;
+    city: string;
+    phone: string;
+  };
+}
+
+// Détails de la famille
+export interface IFamilyDetails {
   id: number;
   address: string;
   postal_code: string;
   city: string;
   phone: string;
-  number_of_children?: number;
-  number_of_animals?: number;
-  garden?: boolean;
-  description?: string;
-  profile_photo?: string;
-  id_user?: number;
-  created_at?: Date;
-  updated_at?: Date;
-
-  //! Liste des animaux associés à la famille
-  animalsFamily?: IAnimal[];
-
-  //! Relation avec un utilisateur
-  user?: IUser;
-
-  //! Fichier de profil optionnel
-  profile_file?: File | null;
+  description: string;
+  garden: boolean;
+  id_user: number;
+  number_of_animals: number | null;
+  number_of_children: number | null;
+  profile_photo: string;
 }
 
-//! Type pour le formulaire d'ajout d'une famille
-export interface IFamilyForm {
-  profile_file?: File | null;
-  lastname: string;
-  firstname: string;
-  email: string;
-  phone: string;
-  address: string;
-  postal_code: string;
-  city: string;
-  garden: boolean;
-  number_of_children: number;
-  number_of_animals: number;
+// Exemple de type pour une association
+export interface IAssociationDetails {
+  name: string;
   description: string;
+  phone: string;
 }

@@ -1,12 +1,12 @@
 :root {
-  --blue-light: #101026; /*  fond des cartes */
-  --bghovercard :#D66464; /*fond des cartes au survol*/
-  --bgfilter: #04051B; /*fond du filtre*/
-  --blue-dark: #E17664; /* pour les éléments de survol ou les bordures */
+  --blue-light: #2E4057; /*  fond des cartes */
+  --bghovercard :#27586E; /*fond des cartes au survol*/
+  --bgfilter: #2E4057; /*fond du filtre*/
+  --blue-dark: #2A8D89; /* pour les éléments de survol ou les bordures */
   --white: #ffffff; /* pour les textes ou les fonds d'éléments */
-  --gray: #888a8b; /* pour les textes secondaires comme les options par défaut */
-  --blue-hover: #E17664; /* pour les éléments au survol, comme les boutons */
-  --background-color: #484866; /* Couleur de fond principale de la page */
+  --gray: #F8EDE4; /* pour les textes secondaires comme les options par défaut */
+  --blue-hover: #27586E; /* bouton appliquer les filtres */
+  --background-color: #e5ebf0; /* Couleur de fond principale de la page */
   --textCard : rgb(241, 234, 234);
 }
 
@@ -82,17 +82,18 @@ main.Animals {
   background-color: var(--blue-hover);
   color: var(--white);
   cursor: pointer;
-  border: 1px solid var(--white);
+  border: none;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.9s ease;
   
 }
 
 /* Bouton au survol */
 #apply-filters-btn:hover {
   background-color: var(--bghovercard);
-  border: 1px solid white;
+border: none;
   font-weight: bold;
+  
 }
 
 /* Bouton de réinitialisation (icône poubelle) */
@@ -146,7 +147,8 @@ main.Animals {
               background 0.4s ease-in-out;
   &:hover {
     transform: scale(1.05);
-    background: var(--bghovercard);
+   
+    
   }
 }
 

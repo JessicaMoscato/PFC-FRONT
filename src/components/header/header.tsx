@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom"; // Utilisation de NavLink au lieu de Link
+import { NavLink, useNavigate } from "react-router-dom"; // Ajout de useNavigate
 import "./header.scss";
 import logo from "../../assets/images/logosimple.png";
 import ModalLogin from "../modalLogin/modalLogin";
@@ -9,13 +9,32 @@ import AuthContext from "../../contexts/authContext";
 const Header: React.FC = () => {
   const { user, token, login, logout } = useContext(AuthContext) || {};
   const [isModalOpen, setIsModalOpen] = React.useState(false); // État local pour gérer l'affichage de la modal de connexion/inscription
+  const navigate = useNavigate(); // Initialisation de useNavigate
 
-  // Gestion de l'état de la modal
+  //! Gestion de l'état de la modal
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const safeLogin = login ? login : () => {};
   const isAuthenticated = !!user && !!token;
+
+  //! Gestion de la déconnexion avec redirection
+const handleLogout = () => {
+  try {
+    // Si la fonction de logout existe, on l'appelle pour réinitialiser l'état du contexte
+    logout && logout(); // Appel à la fonction logout du contexte
+
+    // Suppression du token d'authentification du localStorage
+    localStorage.removeItem("authToken");
+
+    // Redirection vers la page d'accueil
+    navigate("/");
+  } catch (error) {
+    // Optionnel : gestion d'erreur si quelque chose se passe mal pendant la déconnexion
+    console.error("Erreur lors de la déconnexion :", error);
+  }
+};
+
 
   return (
     <header className="header">
@@ -42,46 +61,36 @@ const Header: React.FC = () => {
           >
             Animaux
           </NavLink>
+        </div>
 
+        <div className="auth-container">
           {isAuthenticated && user?.role === "family" && (
             <NavLink
               className={(navData) =>
-                navData.isActive ? "nav-link active-link" : "nav-link"
+                navData.isActive ? "nav-link " : "nav-link"
               }
               to="/espace-famille"
             >
-              Mon espace famille
+              <i className="fa-solid fa-user"></i>
             </NavLink>
           )}
 
           {isAuthenticated && user?.role === "association" && (
             <NavLink
               className={(navData) =>
-                navData.isActive ? "nav-link active-link" : "nav-link"
+                navData.isActive ? "nav-link " : "nav-link"
               }
               to="/espace-association"
             >
-              Mon espace association
+              <i className="fa-solid fa-house"></i>
             </NavLink>
           )}
-
-          <NavLink
-            className={(navData) =>
-              navData.isActive ? "nav-link active-link" : "nav-link"
-            }
-            to="/contact"
-          >
-            Contact
-          </NavLink>
-        </div>
-
-        <div className="auth-container">
           {isAuthenticated ? (
             <div className="user-info">
               <span>
                 {user?.firstname} {user?.lastname}
               </span>
-              <button className="auth-button" onClick={logout}>
+              <button className="auth-button" onClick={handleLogout}>
                 Se déconnecter
               </button>
             </div>
