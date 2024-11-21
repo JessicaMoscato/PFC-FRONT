@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { NavLink, useNavigate } from "react-router-dom"; // Ajout de useNavigate
 import "./header.scss";
 import logo from "../../assets/images/logosimple.png";
@@ -38,11 +39,15 @@ const handleLogout = () => {
 
   return (
     <header className="header">
+    
       <div className="header-title">
         <div className="logo">
+          <Link to="/" className="logo"> {/* Lien vers la page d'accueil sur le logo */}
           <img src={logo} alt="Logo" className="logo-img" />
-          <h1>Pet Foster Connect</h1>
-        </div>
+        </Link>
+        <h1>Pet Foster Connect</h1>
+      </div>
+          
 
         <div className="header-links">
           <NavLink
