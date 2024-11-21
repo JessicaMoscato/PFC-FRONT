@@ -1,3 +1,7 @@
+//! Type de rôle pour un utilisateur
+export type UserRole = "family" | "association";
+
+
 //! Type pour une famille
 export interface IFamily {
   address: string; // Adresse de la famille
@@ -16,8 +20,6 @@ export interface IAssociation {
   city: string; // Ville de l'association
 }
 
-//! Type de rôle pour un utilisateur
-export type UserRole = "family" | "association";
 
 //! Type utilisateur commun (utilisé pour le backend)
 export interface IUser {
