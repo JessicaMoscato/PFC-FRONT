@@ -9,6 +9,11 @@ $button-hover-bg-color: darken($primary-color, 10%);
 $label-color: #495057;
 $error-color: $danger-color;
 
+//force a avoir les input en minuscule
+input {
+  text-transform: lowercase;
+}
+
 // Style global du formulaire
 .signup-fa {
   background-color: $background-color;
