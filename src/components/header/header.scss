@@ -26,20 +26,23 @@ $link-actif:#88ADB7;
 }
 
 .logo {
+  width: 30%;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  margin-right: 20px;
+ 
 
   .logo-img {
+    margin-right: 1rem;
     height: 60px;
     width: auto;
   }
 
   h1 {
-    width: 280px;
+    width: 300px;
     text-align: center;
     font-size: 1.5rem;
-    margin: 0;
+  
     line-height: 1;
   }
 }
@@ -47,10 +50,10 @@ $link-actif:#88ADB7;
 /* Centrer les liens dans le header */
 .header-links {
   display: flex;
-  justify-content: center; /* Centrer horizontalement les liens */
-  width: 100%; /* S'assurer que la section occupe toute la largeur */
+  justify-content: flex-end; /* Centrer horizontalement les liens */
+  width: 90%; /* S'assurer que la section occupe toute la largeur */
   margin-left: auto; /* Garder l'alignement à gauche pour la section logo et la section de déconnexion */
-  margin-right: auto; /* Garder l'alignement à droite pour le bouton d'authentification */
+  margin-right: 100px; /* Garder l'alignement à droite pour le bouton d'authentification */
 }
 
 .nav-list {
@@ -93,7 +96,7 @@ $link-actif:#88ADB7;
 }
 
 .auth-button {
-  width: 200px;
+  width: 250px;
   background-color: $button-bg-color;
   color: #fff;
   text-decoration: none;

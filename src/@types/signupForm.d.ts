@@ -8,14 +8,12 @@ export interface IFamily {
 
 //! Type pour une association
 export interface IAssociation {
-  lastname: string; // Nom de l'association
-  firstname: string; // Prénom ou nom principal du représentant
   representative: string; // Nom complet du représentant légal
   rna_number: string; // Numéro RNA de l'association
+  phone: string; // Numéro de téléphone de l'association
   address: string; // Adresse de l'association
   postal_code: string; // Code postal de l'association
   city: string; // Ville de l'association
-  phone: string | null; // Numéro de téléphone (facultatif)
 }
 
 //! Type de rôle pour un utilisateur
@@ -39,6 +37,7 @@ export interface IUserRegistrationFamily {
   password: string; // Mot de passe
   passwordConfirmation?: string; // Confirmation du mot de passe
   family: IFamily; // Informations spécifiques à la famille
+
 }
 
 //! Type pour l'inscription d'un utilisateur de type "association"
@@ -47,7 +46,7 @@ export interface IUserRegistrationAssociation {
   lastname: string; // Nom de l'utilisateur
   email: string; // Adresse email
   password: string; // Mot de passe
-  passwordConfirmation: string; // Confirmation du mot de passe
+  passwordConfirmation?: string; // Confirmation du mot de passe
   association: IAssociation; // Informations spécifiques à l'association
 }
 

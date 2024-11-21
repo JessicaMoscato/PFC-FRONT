@@ -26,6 +26,12 @@ importers:
       axios:
         specifier: ^1.7.7
         version: 1.7.7
+      bulma:
+        specifier: ^1.0.2
+        version: 1.0.2
+      bulma-toast:
+        specifier: ^2.4.4
+        version: 2.4.4
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -642,6 +648,12 @@ packages:
 
   buffer-builder@0.2.0:
     resolution: {integrity: sha512-7VPMEPuYznPSoR21NE1zvd2Xna6c/CloiZCfcMXR1Jny6PjX0N4Nsa38zcBFo/FMK+BlA+FLKbJCQ0i2yxp+Xg==}
+
+  bulma-toast@2.4.4:
+    resolution: {integrity: sha512-frK7CiTE7sW6bgJFnWE4aL3Fga9O2U6O536gj6xox+52kqb5S5WaDUq37cArzjuvnSXY5mPIvzt5xNdBeOnShA==}
+
+  bulma@1.0.2:
+    resolution: {integrity: sha512-D7GnDuF6seb6HkcnRMM9E739QpEY9chDzzeFrHMyEns/EXyDJuQ0XA0KxbBl/B2NTsKSoDomW61jFGFaAxhK5A==}
 
   callsites@3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
@@ -1867,6 +1879,10 @@ snapshots:
       update-browserslist-db: 1.1.1(browserslist@4.24.2)
 
   buffer-builder@0.2.0: {}
+
+  bulma-toast@2.4.4: {}
+
+  bulma@1.0.2: {}
 
   callsites@3.1.0: {}
 

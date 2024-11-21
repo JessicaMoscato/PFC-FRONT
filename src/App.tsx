@@ -1,6 +1,6 @@
 // src/App.tsx
-
 import React from "react";
+import 'bulma/css/bulma.min.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AnimalsPage from "./pages/animalPage/animalPage";
 import Signup_assoPage from "./pages/signupPage/signup_assoPage";

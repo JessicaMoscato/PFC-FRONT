@@ -1,211 +1,413 @@
-import  { useState, useEffect } from "react";
-import "./signup.scss";
+import { useState, ChangeEvent, FormEvent } from "react";
+import "./signup_asso.scss";
+import { CreateUser } from "../../api/user.api";
+import type { IUserRegistrationAssociation } from "../../@types/signupForm";
+import Toast from "../../toast/toast";
 
 
-//! Composant SignupAssociation
-const SignupAssociation: React.FC = () => {
-  //! Initialisation de l'état local pour gérer les données du formulaire
-  const [formData, setFormData] = useState({
-    nomAssociation: "", // Nom de l'association --> representative
-    nom: "", // Nom du représentant
-    prenom: "", // Prénom du représentant
-    adresse: "", // Adresse de l'association
-    codePostal: "", // Code postal de l'association
-    ville: "", // Ville de l'association
-    telephone: "", // Numéro de téléphone
-    email: "", // Adresse email
-    numeroRNA: "", // Numéro RNA unique pour identifier l'association
-    password: "", // Mot de passe
-    confirmPassword: "", // Confirmation du mot de passe
+
+
+const SignupAsso = () => {
+  //! State pour gérer les données du formulaire
+  const [formData, setFormData] = useState<IUserRegistrationAssociation>({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+    association: {
+      address: "",
+      representative: "",
+      rna_number: "",
+      phone: "",
+      postal_code: "",
+      city: "",
+    },
   });
 
-  //! Ajout et suppression d'une classe CSS spécifique à la page lors du montage/démontage du composant
-  useEffect(() => {
-    // Ajoute une classe CSS pour styliser la page d'inscription
-    document.body.classList.add("signup-asso-page");
+  //! State pour les messages d'erreur et de succès
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [phoneError, setPhoneError] = useState<string>("");
+  const [postalCodeError, setPostalCodeError] = useState<string>("");
+  const [rnaNumberError, setRnaNumberError] = useState<string>("");
 
-    // Nettoyage : retire la classe CSS lors du démontage du composant
-    return () => {
-      document.body.classList.remove("signup-asso-page");
-    };
-  }, []);
+  //! State pour gérer l'affichage de Toast
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string>("");
+  const [toastType, setToastType] = useState<"success" | "error">("success");
 
-  //! Gestion des changements dans les champs du formulaire
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target; // Récupère le nom et la valeur du champ modifié
-    // Met à jour l'état avec la nouvelle valeur tout en conservant les autres données
-    setFormData({ ...formData, [name]: value });
+  //! Fonction pour gérer les changements dans les champs du formulaire
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    if (
+      [
+        "address",
+        "postal_code",
+        "city",
+        "phone",
+        "representative",
+        "rna_number",
+      ].includes(name)
+    ) {
+      setFormData((prevData) => ({
+        ...prevData,
+        association: {
+          ...prevData.association,
+          [name]: value,
+        },
+      }));
+
+      // Validation du numéro de téléphone en temps réel
+      if (name === "phone") {
+        if (!/^\d{10}$/.test(value)) {
+          setPhoneError("Le numéro de téléphone doit comporter 10 chiffres.");
+        } else {
+          setPhoneError("");
+        }
+      }
+      // Validation du code postal en temps réel
+      if (name === "postal_code") {
+        if (!/^\d{5}$/.test(value)) {
+          setPostalCodeError("Le code postal doit être composé de 5 chiffres.");
+        } else {
+          setPostalCodeError("");
+        }
+      }
+      // Validation du RNA number en temps réel
+      if (name === "rna_number") {
+        if (!/^W\d{9}$/.test(value)) {
+          setRnaNumberError(
+            "Le numéro RNA doit commencer par W suivi de 9 chiffres."
+          );
+        } else {
+          setRnaNumberError("");
+        }
+      }
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
-  //! Validation et soumission du formulaire
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // Empêche le rechargement de la page lors de la soumission
+  //! Fonction pour gérer les soumissions du formulaire
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    // Vérifie si le mot de passe et la confirmation sont identiques
-    if (formData.password !== formData.confirmPassword) {
-      alert("Les mots de passe ne correspondent pas !");
-      return; // Arrête l'exécution si les mots de passe ne correspondent pas
+    // Vérification du code postal
+    if (!/^\d{5}$/.test(formData.association.postal_code)) {
+      setErrorMessage("Le code postal doit être composé de 5 chiffres.");
+      return;
     }
 
-    // Affiche les données dans la console (simule une soumission)
-    console.log("Formulaire soumis : ", formData);
+    // Vérification du numéro de téléphone
+    if (!/^\d{10}$/.test(formData.association.phone)) {
+      setPhoneError("Le numéro de téléphone doit comporter 10 chiffres.");
+      return;
+    }
+
+    // Vérification de la confirmation du mot de passe
+    if (formData.password !== formData.passwordConfirmation) {
+      setErrorMessage("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
+    //Vérification de l'email
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(formData.email)) {
+      setErrorMessage("L'email est invalide.");
+      return;
+    }
+
+    // Vérification du NRA number
+    if (!/^W\d{9}$/.test(formData.association.rna_number)) {
+      setRnaNumberError(
+        "Le numéro RNA doit commencer par W suivi de 9 chiffres."
+      );
+      return;
+    }
+
+    //! Envoi des données au Backend
+    try {
+      const { passwordConfirmation, ...dataToSend } = formData;
+      await CreateUser(dataToSend); // CreateUser est la fonction dans user.api.tsx
+
+      //! Affichage du message de success avec Toast
+
+      setToastMessage(
+        "Inscription reussie ! Vous pouvez maintenant vous connecter."
+      );
+      setToastType("success");
+      setShowToast(true);
+
+      //!  Reinitialisation du formulaire
+      setFormData({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        passwordConfirmation: "",
+        association: {
+          address: "",
+          postal_code: "",
+          city: "",
+          phone: "",
+          rna_number: "",
+          representative: "",
+        },
+      });
+      setErrorMessage("");
+      setPhoneError("");
+      setPostalCodeError("");
+      setRnaNumberError("");
+    } catch (error: any) {
+      //! Affichage du message d'erreur avec Toast
+      const errorMessage =
+        error?.response?.data?.message ||
+        "Une erreur s'est produite lors de l'inscription.";
+
+      setToastMessage(errorMessage);
+      setToastType("error");
+      setShowToast(true);
+    }
   };
 
   //! Affichage du formulaire d'inscription
   return (
-    <section className="signupContainer">
-      {/* Titre de la page */}
-      <h1>Inscription Association</h1>
+    <section className="signup-asso">
+      <div className="signup_Header-asso">
+        <h1>Inscription association</h1>
+      </div>
+      <div className="subscribeFormContainer-asso">
+        <form
+          onSubmit={handleSubmit}
+          className="formConnexionPage-asso"
+          id="subscribeForm"
+        >
+          <div className="formColumns">
+            {/* Colonne de gauche */}
+            <div className="formColumnLeft">
+              {/* Nom de l'association */}
+              <div className="fieldContainer-asso">
+                <label
+                  className="labelConnexionPage-asso"
+                  htmlFor="representative"
+                >
+                  Nom de l'association
+                </label>
+                <input
+                  className="inputConnexionPage-asso"
+                  type="text"
+                  name="representative"
+                  id="representative"
+                  value={formData.association.representative}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-      {/* Début du formulaire */}
-      <form onSubmit={handleSubmit} className="signupForm">
-        <div className="leftColumn">
-          {/* Groupe de champs pour la colonne gauche */}
-          <div className="inputGroup">
-            <label htmlFor="nomAssociation">Nom de l'association</label>
-            <input
-              type="text"
-              id="nomAssociation"
-              name="nomAssociation"
-              placeholder="Entrez le nom de l'association"
-              value={formData.nomAssociation}
-              onChange={handleChange}
-              required // Champ obligatoire
-            />
-          </div>
-          <div className="inputGroup">
-            <label htmlFor="nom">Nom du représentant</label>
-            <input
-              type="text"
-              id="nom"
-              name="nom"
-              placeholder="Entrez votre nom"
-              value={formData.nom}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="inputGroup">
-            <label htmlFor="prenom">Prénom du représentant</label>
-            <input
-              type="text"
-              id="prenom"
-              name="prenom"
-              placeholder="Entrez votre prénom"
-              value={formData.prenom}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="inputGroup">
-            <label htmlFor="adresse">Adresse</label>
-            <input
-              type="text"
-              id="adresse"
-              name="adresse"
-              placeholder="Entrez votre adresse"
-              value={formData.adresse}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="inputGroup">
-            <label htmlFor="codePostal">Code Postal</label>
-            <input
-              type="text"
-              id="codePostal"
-              name="codePostal"
-              placeholder="Entrez votre code postal"
-              value={formData.codePostal}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="inputGroup">
-            <label htmlFor="ville">Ville</label>
-            <input
-              type="text"
-              id="ville"
-              name="ville"
-              placeholder="Entrez votre ville"
-              value={formData.ville}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
+              {/* Nom du représentant */}
+              <div className="fieldContainer-asso">
+                <label className="labelConnexionPage-asso" htmlFor="lastname">
+                  Nom du représentant
+                </label>
+                <input
+                  className="inputConnexionPage-asso"
+                  type="text"
+                  name="lastname"
+                  id="lastname"
+                  value={formData.lastname}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-        <div className="rightColumn">
-          {/* Groupe de champs pour la colonne droite */}
-          <div className="inputGroup">
-            <label htmlFor="telephone">Téléphone</label>
-            <input
-              type="tel"
-              id="telephone"
-              name="telephone"
-              placeholder="Entrez votre téléphone"
-              value={formData.telephone}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="inputGroup">
-            <label htmlFor="email">E-mail</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Entrez votre email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="inputGroup">
-            <label htmlFor="numeroRNA">Numéro RNA</label>
-            <input
-              type="text"
-              id="numeroRNA"
-              name="numeroRNA"
-              placeholder="W*********"
-              value={formData.numeroRNA}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="inputGroup">
-            <label htmlFor="password">Mot de passe</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Entrez votre mot de passe"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="inputGroup">
-            <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="Confirmez votre mot de passe"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
+              {/* Prénom du représentant */}
+              <div className="fieldContainer-asso">
+                <label className="labelConnexionPage-asso" htmlFor="firstname">
+                  Prénom du représentant
+                </label>
+                <input
+                  className="inputConnexionPage-asso"
+                  type="text"
+                  name="firstname"
+                  id="firstname"
+                  value={formData.firstname}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-        {/* Bouton de soumission */}
-        <button type="submit" className="signupButton">
-          Je valide mon inscription
-        </button>
-      </form>
+              {/* Adresse */}
+              <div className="fieldContainer-asso">
+                <label className="labelConnexionPage-asso" htmlFor="address">
+                  Adresse
+                </label>
+                <input
+                  className="inputConnexionPage-asso"
+                  type="text"
+                  name="address"
+                  id="address"
+                  value={formData.association.address}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              {/* Code postal */}
+              <div className="fieldContainer-asso">
+                <label
+                  className="labelConnexionPage-asso"
+                  htmlFor="postal_code"
+                >
+                  Code postal
+                </label>
+                <input
+                  className="inputConnexionPage-asso"
+                  type="text"
+                  name="postal_code"
+                  id="postal_code"
+                  value={formData.association.postal_code}
+                  onChange={handleChange}
+                  required
+                />
+                {postalCodeError && (
+                  <p className="errorMessage-asso">{postalCodeError}</p>
+                )}
+              </div>
+
+              {/* Ville */}
+              <div className="fieldContainer-asso">
+                <label className="labelConnexionPage-asso" htmlFor="city">
+                  Ville
+                </label>
+                <input
+                  className="inputConnexionPage-asso"
+                  type="text"
+                  name="city"
+                  id="city"
+                  value={formData.association.city}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Colonne de droite */}
+
+            <div className="formColumnRight">
+              {/* RNA */}
+              <div className="fieldContainer-asso">
+                <label className="labelConnexionPage-asso" htmlFor="rna_number">
+                  RNA
+                </label>
+                <input
+                  className="inputConnexionPage-asso"
+                  type="text"
+                  name="rna_number"
+                  id="rna_number"
+                  value={formData.association.rna_number}
+                  onChange={handleChange}
+                  required
+                />
+                {rnaNumberError && (
+                  <p className="errorMessage-asso">{rnaNumberError}</p>
+                )}
+              </div>
+
+              {/* Téléphone */}
+              <div className="fieldContainer-asso">
+                <label className="labelConnexionPage-asso" htmlFor="phone">
+                  Téléphone
+                </label>
+                <input
+                  className="inputConnexionPage-asso"
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  value={formData.association.phone}
+                  onChange={handleChange}
+                  required
+                />
+                {phoneError && (
+                  <p className="errorMessage-asso">{phoneError}</p>
+                )}
+              </div>
+
+              {/* Email */}
+              <div className="fieldContainer-asso">
+                <label className="labelConnexionPage-asso" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  className="inputConnexionPage-asso"
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              {/*  Mot de passe */}
+              <div className="fieldContainer-asso">
+                <label className="labelConnexionPage-asso" htmlFor="password">
+                  Mot de passe
+                </label>
+                <input
+                  className="inputConnexionPage-asso"
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              {/* Confirmation du mot de passe */}
+              <div className="fieldContainer-asso">
+                <label
+                  className="labelConnexionPage-asso"
+                  htmlFor="passwordConfirmation"
+                >
+                  Confirmer le mot de passe
+                </label>
+                <input
+                  className="inputConnexionPage-asso"
+                  type="password"
+                  name="passwordConfirmation"
+                  id="passwordConfirmation"
+                  value={formData.passwordConfirmation}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              {/* Bouton de validation */}
+              <button type="submit" className="buttonConnexionPage-asso">
+                Créer un compte
+              </button>
+            </div>
+          </div>
+
+          {/* Affichage des erreurs */}
+          {errorMessage && <p className="errorMessage-asso">{errorMessage}</p>}
+        </form>
+      </div>
+
+      {/* Affichage du Toast avec le message */}
+      {showToast && (
+        <Toast
+          setToast={setShowToast}
+          message={toastMessage}
+          type={toastType}
+        />
+      )}
     </section>
   );
 };
 
-export default SignupAssociation;
+export default SignupAsso;
