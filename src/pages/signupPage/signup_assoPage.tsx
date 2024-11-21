@@ -2,7 +2,7 @@
 
 import React from "react";
 import Signup_asso from "../../components/signup_forms/signup_asso";
-import "./signup.scss";
+import "./signupPage.scss";
 
 const signup_assoPage: React.FC = () => {
   return (
