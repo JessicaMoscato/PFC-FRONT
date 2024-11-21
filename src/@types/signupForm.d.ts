@@ -8,7 +8,7 @@ export interface IFamily {
 
 //! Type pour une association
 export interface IAssociation {
-  representative: string; // Nom complet du représentant légal
+  representative: string; // Nom de l'association
   rna_number: string; // Numéro RNA de l'association
   phone: string; // Numéro de téléphone de l'association
   address: string; // Adresse de l'association

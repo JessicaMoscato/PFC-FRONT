@@ -167,11 +167,12 @@ try {
                 Vous avez déjà un compte ?{" "}
                 <button
                   type="button"
-                  className="register-option-btn"
-                  onClick={handleRegisterRedirect}
-                  disabled={!selectedOption}
+                  onClick={() => {
+                    setIsChoosingType(false); // Revenir à la connexion
+                    resetForm(); // Réinitialiser les champs
+                  }}
                 >
-                  S'inscrire
+                  Se connecter
                 </button>
               </p>
             </div>
