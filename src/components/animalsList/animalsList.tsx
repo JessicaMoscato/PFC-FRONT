@@ -141,13 +141,13 @@ const Animals: React.FC = () => {
       <div className="animal-details">
         {animal.species && (
           <p>
-            <strong>Espèce:</strong> {animal.species}
+            Espèce: {animal.species}
           </p>
         )}
 
         {animal.age && (
           <p>
-            <strong>Âge:</strong> {animal.age} ans
+            Âge: {animal.age} ans
           </p>
         )}
       </div>

@@ -1,12 +1,18 @@
 //! Composant ModalLogin : Ce composant affiche une fenêtre modale permettant à un utilisateur de se connecter ou de s'inscrire.
-//! Il offre deux modes : connexion via email/mot de passe ou choix du type d'inscription (association ou famille d'accueil).
+// Il offre deux modes : connexion via email/mot de passe ou choix du type d'inscription (association ou famille d'accueil).
 //! La gestion des états locaux, des erreurs, et la navigation sont intégrées.
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SigninUser } from "../../api/signin.api"; // Import de la fonction pour l'authentification
-import type { IModalLogin } from "../../@types/user";
 import "./modalLogin.scss";
+
+// Définition du type IModalLogin
+interface IModalLogin {
+  show: boolean; // Détermine si la modal est visible ou non
+  onClose: () => void; // Fonction pour fermer la modal
+  login: (token: string, user: any) => void; // Fonction de gestion de la connexion (peut-être un dispatch ou autre gestion d'état)
+}
 
 const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
   //! États locaux pour gérer les informations de connexion et d'erreurs
@@ -78,7 +84,7 @@ const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
             resetForm();
           }}
           onKeyUp={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+            if (e.key === "Enter" || e.key === " ") {
               onClose();
               resetForm();
             }
@@ -138,14 +144,14 @@ const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
                 Famille d'accueil
               </label>
             </div>
-        <button
-          type="button"
-          className="register-option-btn"
-          onClick={handleRegisterRedirect}
-          disabled={!selectedOption}
-        >
-          S'inscrire
-        </button>
+            <button
+              type="button"
+              className="register-option-btn"
+              onClick={handleRegisterRedirect}
+              disabled={!selectedOption}
+            >
+              S'inscrire
+            </button>
             <div className="switch-form">
               <p>
                 Vous avez déjà un compte ?{" "}

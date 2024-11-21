@@ -3,6 +3,7 @@ import "./signup_asso.scss";
 import { CreateUser } from "../../api/user.api";
 import type { IUserRegistrationAssociation } from "../../@types/signupForm";
 import Toast from "../../toast/toast";
+import ModalLogin from "../modalLogin/modalLogin";
 
 
 
@@ -25,16 +26,19 @@ const SignupAsso = () => {
     },
   });
 
-  //! State pour les messages d'erreur et de succès
+  // State pour les messages d'erreur et de succès
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [phoneError, setPhoneError] = useState<string>("");
   const [postalCodeError, setPostalCodeError] = useState<string>("");
   const [rnaNumberError, setRnaNumberError] = useState<string>("");
 
-  //! State pour gérer l'affichage de Toast
+  // State pour gérer l'affichage de Toast
   const [showToast, setShowToast] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>("");
   const [toastType, setToastType] = useState<"success" | "error">("success");
+
+  // State pour gérer l'affichage du modal
+  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
 
   //! Fonction pour gérer les changements dans les champs du formulaire
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -96,38 +100,45 @@ const SignupAsso = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Permet de ne pas envoyer les donnés si le formulaire n'est pas valide
+    let formIsValid = true;
+
     // Vérification du code postal
     if (!/^\d{5}$/.test(formData.association.postal_code)) {
       setErrorMessage("Le code postal doit être composé de 5 chiffres.");
-      return;
+      formIsValid = false; // Si la validation a échoué, on arrête le processus
     }
 
     // Vérification du numéro de téléphone
     if (!/^\d{10}$/.test(formData.association.phone)) {
       setPhoneError("Le numéro de téléphone doit comporter 10 chiffres.");
-      return;
+      formIsValid = false; // Si la validation a échoué, on arrête le processus
     }
 
     // Vérification de la confirmation du mot de passe
     if (formData.password !== formData.passwordConfirmation) {
       setErrorMessage("Les mots de passe ne correspondent pas.");
-      return;
+      formIsValid = false; // Si la validation a échoué, on arrêt le processus
     }
 
     //Vérification de l'email
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(formData.email)) {
       setErrorMessage("L'email est invalide.");
-      return;
+      formIsValid = false; // Si la validation a échoué, on arrête le processus
     }
 
     // Vérification du NRA number
     if (!/^W\d{9}$/.test(formData.association.rna_number)) {
       setRnaNumberError(
-        "Le numéro RNA doit commencer par W suivi de 9 chiffres."
-      );
-      return;
+        "Le numéro RNA doit commencer par W suivi de 9 chiffres.");
+      formIsValid = false; // Si la validation a échoué, on arrête le processus
     }
+
+  // Permet de ne pas envoyer les données si le formulaire n'est pas valide
+  if (!formIsValid) {
+    return;
+  }
 
     //! Envoi des données au Backend
     try {
@@ -141,6 +152,9 @@ const SignupAsso = () => {
       );
       setToastType("success");
       setShowToast(true);
+
+      // Ouvrir la modal de connexion dès que l'inscription est réussie
+      setShowLoginModal(true); // Active l'affichage de la modal
 
       //!  Reinitialisation du formulaire
       setFormData({
@@ -406,6 +420,11 @@ const SignupAsso = () => {
           type={toastType}
         />
       )}
+
+      {/* Affichage de la modal de connexion lorsque showLoginModal est true */}
+     {showLoginModal && <ModalLogin show={showLoginModal} onClose={() => setShowLoginModal(false)} login={() => { /* gestion du login */ }} />}
+      
+
     </section>
   );
 };
