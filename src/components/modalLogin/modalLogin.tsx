@@ -1,12 +1,18 @@
 //! Composant ModalLogin : Ce composant affiche une fenêtre modale permettant à un utilisateur de se connecter ou de s'inscrire.
-//! Il offre deux modes : connexion via email/mot de passe ou choix du type d'inscription (association ou famille d'accueil).
+// Il offre deux modes : connexion via email/mot de passe ou choix du type d'inscription (association ou famille d'accueil).
 //! La gestion des états locaux, des erreurs, et la navigation sont intégrées.
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SigninUser } from "../../api/signin.api"; // Import de la fonction pour l'authentification
-import type { IModalLogin } from "../../@types/user";
 import "./modalLogin.scss";
+
+// Définition du type IModalLogin
+interface IModalLogin {
+  show: boolean; // Détermine si la modal est visible ou non
+  onClose: () => void; // Fonction pour fermer la modal
+  login: (token: string, user: any) => void; // Fonction de gestion de la connexion (peut-être un dispatch ou autre gestion d'état)
+}
 
 const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
   //! États locaux pour gérer les informations de connexion et d'erreurs
@@ -39,23 +45,33 @@ const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
     }
 
     //! Appel API pour la connexion
-    try {
-      const data = await SigninUser({ email, password });
+try {
+  const data = await SigninUser({ email, password });
 
-      const { token, user } = data; // Assure-toi que la réponse contient un objet 'user'
-      if (token) {
-        // Sauvegarde du token dans le contexte ou localStorage si nécessaire
-        login(token, user); // Appel de la fonction login passée en prop
-        onClose(); // Ferme la modal après une connexion réussie
-        resetForm(); // Réinitialise le formulaire
-        navigate("/"); // Rediriger vers la page d'accueil
-      } else {
-        setError("Nom d'utilisateur ou mot de passe incorrect");
-      }
-    } catch (error: unknown) {
-      console.error(error);
-      setError("Une erreur est survenue. Veuillez réessayer.");
-    }
+  const { token, user } = data; // On récupère le token et l'utilisateur de la réponse
+  if (token) {
+    // Si un token est présent, la connexion est réussie
+    login(token, user); // On appelle la fonction login passée en prop
+    onClose(); // On ferme la modal
+    resetForm(); // On réinitialise le formulaire
+    navigate("/"); // On redirige vers la page d'accueil
+  } else {
+    // Si pas de token, on affiche un message d'erreur
+    setError("Nom d'utilisateur ou mot de passe incorrect");
+  }
+} catch (error: any) {
+  if (error.response) {
+    // Si l'erreur provient de l'API
+    const apiMessage = error.response.data?.message || "Erreur inconnue."; // On récupère le message de l'API
+    setError(apiMessage); // On affiche le message renvoyé par l'API
+  } else if (error.request) {
+    // Si l'erreur vient d'un problème réseau
+    setError("Problème réseau. Veuillez réessayer.");
+  } else {
+    // Pour toute autre erreur
+    setError("Une erreur inattendue s'est produite.");
+  }
+}
   };
 
   const handleRegisterRedirect = () => {
@@ -78,7 +94,7 @@ const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
             resetForm();
           }}
           onKeyUp={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+            if (e.key === "Enter" || e.key === " ") {
               onClose();
               resetForm();
             }
@@ -138,24 +154,25 @@ const ModalLogin: React.FC<IModalLogin> = ({ show, onClose, login }) => {
                 Famille d'accueil
               </label>
             </div>
-        <button
-          type="button"
-          className="register-option-btn"
-          onClick={handleRegisterRedirect}
-          disabled={!selectedOption}
-        >
-          S'inscrire
-        </button>
+            <button
+              type="button"
+              className="register-option-btn"
+              onClick={handleRegisterRedirect}
+              disabled={!selectedOption}
+            >
+              S'inscrire
+            </button>
             <div className="switch-form">
               <p>
                 Vous avez déjà un compte ?{" "}
                 <button
                   type="button"
-                  className="register-option-btn"
-                  onClick={handleRegisterRedirect}
-                  disabled={!selectedOption}
+                  onClick={() => {
+                    setIsChoosingType(false); // Revenir à la connexion
+                    resetForm(); // Réinitialiser les champs
+                  }}
                 >
-                  S'inscrire
+                  Se connecter
                 </button>
               </p>
             </div>

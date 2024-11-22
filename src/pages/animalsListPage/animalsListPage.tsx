@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { GetAllAnimals } from "../../api/animal.api";
+import { GetAllAnimals } from "../../api/animal.api"; // appel la fonction getallanimals
 import type { IAnimal } from "../../@types/animal";
-import "./animalsList.scss";
+import "./animalsListPage.scss";
+import "../../styles/commun.scss";
 
-const Animals: React.FC = () => {
+const AnimalsPage: React.FC = () => {
   // Déclare les états pour gérer les animaux, les filtres et les erreurs
   const [animals, setAnimals] = useState<IAnimal[]>([]);
   const [filteredAnimals, setFilteredAnimals] = useState<IAnimal[]>([]);
@@ -26,7 +27,7 @@ const Animals: React.FC = () => {
     return predefinedSizes.indexOf(a) - predefinedSizes.indexOf(b);
   });
 
-  // Effet pour charger les données des animaux au montage du composant
+  //! Effet pour charger les données des animaux au montage du composant
   useEffect(() => {
     document.body.classList.add("animals-page"); // Ajoute une classe pour la page actuelle
 
@@ -61,7 +62,7 @@ const Animals: React.FC = () => {
     };
   }, []);
 
-  // Fonction pour appliquer les filtres sur la liste des animaux
+  //! Fonction pour appliquer les filtres sur la liste des animaux
   const applyFilters = () => {
     let filtered = [...animals];
 
@@ -97,7 +98,7 @@ const Animals: React.FC = () => {
     setFilteredAnimals(filtered); // Met à jour la liste filtrée
   };
 
-  // Gère les changements dans les filtres
+  //! Gère les changements dans les filtres
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFilters((prevFilters) => ({
@@ -106,7 +107,7 @@ const Animals: React.FC = () => {
     }));
   };
 
-  // Réinitialise tous les filtres
+  //! Réinitialise tous les filtres
   const resetFilters = () => {
     setFilters({
       species: "",
@@ -138,17 +139,9 @@ const Animals: React.FC = () => {
 
       {/* Détails supplémentaires sur l'animal */}
       <div className="animal-details">
-        {animal.species && (
-          <p>
-            <strong>Espèce:</strong> {animal.species}
-          </p>
-        )}
+        {animal.species && <p>Espèce: {animal.species}</p>}
 
-        {animal.age && (
-          <p>
-            <strong>Âge:</strong> {animal.age} ans
-          </p>
-        )}
+        {animal.age && <p>Âge: {animal.age} ans</p>}
       </div>
     </li>
   );
@@ -236,4 +229,4 @@ const Animals: React.FC = () => {
     </main>
   );
 };
-export default Animals;
+export default AnimalsPage;
